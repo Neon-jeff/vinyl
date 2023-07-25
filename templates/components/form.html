@@ -1,0 +1,40 @@
+{%load static%}
+
+<div class='w-screen relative h-screen'>
+<img src="{%static 'images/A9.jpg'%}" alt="" class='h-full w-full object-cover'>
+<div class='bg-[rgb(0,0,0,.8)] absolute top-0 bottom-0 z-10 w-full h-screen items-center    '>
+<main class='text-white w-full lg:pt-32 pt-20'>
+<h1 class='md:text-4xl text-lg text-center  font-medium pb-4'>Sign up to  <span class='text-purple-500'>explore</span></h1>
+</main>
+<form action='' method='POST' class=' mx-auto bg-white  p-8 md:p-6 lg:w-2/5 w-4/5 grid lg:grid-cols-2 grid-cols-1 gap-3 rounded-md'>
+<fieldset class='flex flex-col gap-1'>
+<label for="uname">Username</label>
+<input name='uname' type="text" placeholder="Enter username" class='placeholder:text-[12px] border-0 bg-gray-50 rounded-sm'>
+</fieldset>
+
+<fieldset class='flex flex-col gap-1'>
+<label for="email">Email</label>
+<input name='email' type="email" placeholder="Enter email" class='placeholder:text-[12px] border-0 bg-gray-50 rounded-sm'>
+</fieldset>
+
+
+<fieldset class='flex flex-col gap-1'>
+<label for="fname">Fullname</label>
+<input name='fname' type="text" placeholder="Enter fullname" class='placeholder:text-[12px] border-0 bg-gray-50 rounded-sm'>
+</fieldset>
+
+<fieldset class='flex flex-col gap-1'>
+<label for="password">Password</label>
+<input name='password' type="password" placeholder="Enter password" class='placeholder:text-[12px] border-0 bg-gray-50 rounded-sm'>
+</fieldset>
+
+<fieldset class='flex flex-col gap-1'>
+<label for="password2">Confirm Password</label>
+<input name='password2' type="text" placeholder="Confirm password" class='placeholder:text-[12px] border-0 bg-gray-50 rounded-sm'>
+</fieldset>
+<button type="submit" class='px-5 py-3 rounded-md bg-purple-500 text-white'>Create Account</button>
+
+</form>
+</div>
+
+</div>
