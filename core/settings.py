@@ -12,7 +12,9 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
-
+import environ
+env=environ.Env()
+environ.Env().read_env()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -21,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-o^o1ebwlxiekcry8mhk8pk$ocs#@5tjs5dnqd$*o%bv0st6ahi'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -90,7 +92,7 @@ WSGI_APPLICATION = 'core.wsgi.application'
 # }
 import dj_database_url
 DATABASES = {
-    'default':dj_database_url.parse("postgres://default:zA9hYpluW4Hb@ep-damp-mouse-665005.ap-southeast-1.postgres.vercel-storage.com:5432/verceldb")
+    'default':dj_database_url.parse(env('DB_URL'))
 }
 
 # Password validation
