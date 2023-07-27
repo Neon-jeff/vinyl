@@ -1,0 +1,48 @@
+{%load static%}
+{%load compress%}
+
+<section class='bg-white py-8  lg:mb-0 relative'>
+<div class=' flex w-4/5 mx-auto justify-between items-center'>
+ <div class='flex items-center gap-3 cursor-pointer ctr'><i class="fa-solid fa-bars"></i><p class='text-xl'>Menu</p></div>
+<div class='flex items-center gap-2 cursor-pointer'>
+<button id="dropdownInformationButton" data-dropdown-toggle="dropdownInformation" class="">
+     <i class="fas fa-user-circle fa-lg" style="color: #d2d4db; font-size:30px;"></i>
+ <i class="fa-solid fa-caret-down"></i>
+</button>
+
+<!-- Dropdown menu -->
+<div id="dropdownInformation" class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+    <div class="px-4 py-3 text-sm text-gray-900 dark:text-white">
+      <div>{{request.user.username}}</div>
+      <div class=" truncate text-[.7rem] text-purple-600">{{request.user.email}}</div>
+    </div>
+    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownInformationButton">
+      <li>
+        <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">History</a>
+      </li>
+      <li>
+        <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Profile</a>
+      </li>
+      <li>
+        <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Share</a>
+      </li>
+    </ul>
+    <div class="py-2">
+      <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</a>
+    </div>
+</div>
+
+</div>
+</div>
+<div class='fixed top-0 bottom-0 left-0 lg:w-1/3 lg:text-lg text-[.8rem] z-50 flex items-center flex-col justify-center gap-3 w-2/3 bg-gray-700 h-screen nav text-white'>
+    <button class='cls absolute top-5 right-8'><i class="fa-solid fa-xmark"></i></button>
+  <p>Home</p>
+  <p>Connect Wallet</p>
+  <p>Request Withdrawal</p>
+  <p>Marketplace</p>
+
+</div>
+</section>
+{%compress js%}
+<script src="{%static 'js/nav.js'%}"></script>
+{%endcompress%}

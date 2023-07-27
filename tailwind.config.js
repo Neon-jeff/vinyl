@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ["./templates/**/*.html"],
+  content: ["./templates/**/*.html", "./static/js/*.js"],
   theme: {
     extend: {
       colors: {
@@ -9,11 +9,11 @@ module.exports = {
         dimWhite: "rgba(255, 255, 255, 0.7)",
         dimBlue: "rgba(9, 151, 124, 0.1)",
         imgBg: "#DDFFBB",
-        borderpri:"black"
+        borderpri: "black",
       },
       fontFamily: {
         montserrat: ["Montserrat", "sans-serif"],
-        lato:["Lato","sans-serif"]
+        lato: ["Lato", "sans-serif"],
       },
     },
     screens: {
@@ -23,11 +23,11 @@ module.exports = {
       md: "1060px",
       lg: "1200px",
       xl: "1700px",
-      xss:"360px"
+      xss: "360px",
     },
-    },
-     plugins: [],
-  };
+  },
+  plugins: [],
+};
 
 
 

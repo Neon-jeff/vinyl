@@ -8,3 +8,10 @@ html{
     font-family: 'Montserrat', sans-serif !important;
     scroll-behavior: smooth;
 }
+
+.show{
+    visibility: inherit;
+}
+.hide{
+    visibility: hidden;
+}

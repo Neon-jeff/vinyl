@@ -1,0 +1,100 @@
+{% extends "dashbase.html" %}
+{%load static%}
+{% block content %}
+<section class='py-10  px-20 max-md:px-5 max-md:py-5 flex flex-col  gap-1'>
+<div class='h-[40vh] max-sm:h-[20vh] relative'>
+<img class='h-full w-full object-cover ' src="{%static 'images/A9.jpg'%}" alt="">
+<div class='absolute top-1/2 lg:left-10 left-5 flex flex-col items-center'>
+    <div class='h-[200px] max-sm:h-[100px] w-[200px] max-sm:w-[100px] bg-white rounded-full flex items-center justify-center'>
+    <img class='h-[180px] w-[180px] max-sm:h-[80px] max-sm:w-[80px] object-cover rounded-full' src="{%static 'images/A4.jpg'%}" alt="">
+</div>
+<div class=' flex flex-col items-center text-md font-semibold rounded-md text-center'> @{{request.user.username}} <p class='py-1 px-3 text-green-400 font-normal text-[.7rem]'> <i class="fa-solid fa-circle-check" style="color: #2a933f;"></i> Verified</p></div>
+
+</div>
+</div>
+<div class='flex mt-2 text-sm max-md:pt-20  lg:gap-10 lg:items-center lg:self-end max-md:flex-col gap-2'>
+<button class='bg-blue-400 text-white px-8 py-3 rounded-md'>Create NFT</button>
+<button class='bg-green-400 text-white px-8 py-3 rounded-md'>Create Collection</button>
+<p class='py-3 lg:px-8 px-3 bg-gray-200 rounded-md max-sm:text-center'>Pending Gas Fee : 0.00ETH</p>
+</div>
+ <p class='text-lg font-medium mt-16 max-sm:mt-0'>Summary</p>
+<div class=' bg-white rounded-md max-md:w-full w-1/4 p-5 flex flex-col items-center gap-3 '>
+    <p class='text-center font-semibold'>Balance 10.00ETH</p>
+    <div class='grid grid-cols-2  gap-x-16 justify-between '>
+    <div>
+    <p>Collections</p> <p>2</p>
+    </div>
+        <div>
+    <p>Collections</p> <p>2</p>
+    </div>
+        <div>
+    <p>Collections</p> <p>2</p>
+    </div>
+        <div>
+    <p>Collections</p> <p>2</p>
+    </div>
+    </div>
+</div>
+{% comment %} Cards for NFTs and Collections {% endcomment %}
+<div class='flex flex-col gap-3 pt-3'>
+<div class='flex gap-4 max-sm:justify-center'>
+    <button class='bg-gray-400 text-black px-8 py-3 rounded-md'>My NFTs</button>
+<button class='bg-gray-200 text-black px-8 py-3 rounded-md'>My Collections</button>
+</div>
+
+{% comment %} NFT LIST {% endcomment %}
+
+<div class='grid grid-cols-1 lg:grid-cols-3 gap-5'>
+
+<div class="bg-white border rounded-md p-5">
+    <img class="rounded-lg w-full h-[200px] object-cover self-center" src="{%static 'images/A5.jpg'%}" alt="" />
+    <div class="p-5 grid grid-cols-2 gap-4">
+
+        <p class="font-medium">Orisha 7</p>
+        <p>20.00ETH</p>
+        <p>View</p>
+        <p class='text-orange-300'>Unminted</p>
+    </div>
+</div>
+
+<div class="bg-white border rounded-md p-5">
+    <img class="rounded-lg w-full h-[200px] object-cover self-center" src="{%static 'images/A6.jpg'%}" alt="" />
+    <div class="p-5 grid grid-cols-2 gap-4">
+
+        <p class="font-medium">Orisha 7</p>
+        <p>20.00ETH</p>
+        <p>View</p>
+        <p class='text-orange-300'>Unminted</p>
+    </div>
+</div>
+
+<div class="bg-white border rounded-md p-5">
+    <img class="rounded-lg w-full h-[200px] object-cover self-center" src="{%static 'images/A8.jpg'%}" alt="" />
+    <div class="p-5 grid grid-cols-2 gap-4">
+
+        <p class="font-medium">Orisha 7</p>
+        <p>20.00ETH</p>
+        <p>View</p>
+        <p class='text-orange-300'>Unminted</p>
+    </div>
+</div>
+
+<div class="bg-white border rounded-md p-5">
+    <img class="rounded-lg w-full h-[200px] object-cover self-center" src="{%static 'images/A4.jpg'%}" alt="" />
+    <div class="p-5 grid grid-cols-2 gap-4">
+
+        <p class="font-medium">Orisha 7</p>
+        <p>20.00ETH</p>
+        <p>View</p>
+        <p class='text-orange-300'>Unminted</p>
+    </div>
+</div>
+
+
+
+
+</div>
+
+</div>
+</section>
+{% endblock content %}

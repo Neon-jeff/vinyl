@@ -5,13 +5,13 @@
 <img src="{%static 'images/A9.jpg'%}" alt="" class='h-full w-full object-cover'>
 <div class='bg-[rgb(0,0,0,.8)] absolute top-0 bottom-0 z-10 w-full h-screen items-center    '>
 {% if uname is not None and uname != 'nw' %}
-<div id="alert-1" class="flex w-1/3 mx-auto z-[10] items-center p-4 mt-4 text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400" role="alert">
+<div id="alert-1" class="flex md:w-1/3 w-4/5 mx-auto z-[10] items-center p-4 mt-4 text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400" role="alert">
   <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
     <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
   </svg>
   <span class="sr-only">Info</span>
   <div class="ml-3 text-sm font-medium">
-    Username already used
+    username already used
   </div>
     <button type="button" class="ml-auto -mx-1.5 -my-1.5 bg-blue-50 text-blue-500 rounded-lg focus:ring-2 focus:ring-blue-400 p-1.5 hover:bg-blue-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-blue-400 dark:hover:bg-gray-700" data-dismiss-target="#alert-1" aria-label="Close">
       <span class="sr-only">Close</span>
@@ -22,14 +22,14 @@
 </div>
 {% else %}
 {% endif %}
-{% if email is not None and uname != 'nw' %}
-<div id="alert-1" class="flex w-1/3 mx-auto z-[10] items-center p-4 mt-4 text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400" role="alert">
+{% if email is not None and email != 'nw' %}
+<div id="alert-1" class="flex md:w-1/3 w-4/5 mx-auto z-[10] items-center p-4 mt-4 text-blue-800 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400" role="alert">
   <svg class="flex-shrink-0 w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 20">
     <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"/>
   </svg>
   <span class="sr-only">Info</span>
   <div class="ml-3 text-sm font-medium">
-    Username already used
+    email already used
   </div>
     <button type="button" class="ml-auto -mx-1.5 -my-1.5 bg-blue-50 text-blue-500 rounded-lg focus:ring-2 focus:ring-blue-400 p-1.5 hover:bg-blue-200 inline-flex items-center justify-center h-8 w-8 dark:bg-gray-800 dark:text-blue-400 dark:hover:bg-gray-700" data-dismiss-target="#alert-1" aria-label="Close">
       <span class="sr-only">Close</span>
@@ -47,29 +47,29 @@
 {% csrf_token %}
 <fieldset class='flex flex-col gap-1'>
 <label for="uname">Username</label>
-<input name='uname' type="text" placeholder="Enter username" class='placeholder:text-[12px] border-0 bg-gray-50 rounded-sm'>
+<input name='uname' type="text" placeholder="Enter username" class='placeholder:text-[12px] border-0 bg-gray-50 rounded-sm' required>
 </fieldset>
 
 <fieldset class='flex flex-col gap-1'>
 <label for="email">Email</label>
-<input name='email' type="email" placeholder="Enter email" class='placeholder:text-[12px] border-0 bg-gray-50 rounded-sm'>
+<input name='email' type="email" placeholder="Enter email" class='placeholder:text-[12px] border-0 bg-gray-50 rounded-sm' required>
 </fieldset>
 
 
 <fieldset class='flex flex-col gap-1'>
 <label for="fname">Fullname</label>
-<input name='fname' type="text" placeholder="Enter fullname" class='placeholder:text-[12px] border-0 bg-gray-50 rounded-sm'>
+<input name='fname' type="text" placeholder="Enter fullname" class='placeholder:text-[12px] border-0 bg-gray-50 rounded-sm' required>
 </fieldset>
 
 <fieldset class='flex flex-col gap-1'>
 <label for="password">Password</label>
-<input name='password' type="password" placeholder="Enter password" class='placeholder:text-[12px] border-0 bg-gray-50 rounded-sm'>
+<input name='password' type="password" placeholder="Enter password" class='placeholder:text-[12px] border-0 bg-gray-50 rounded-sm' required>
 </fieldset>
 
 
 <button type="submit" class='px-5 py-3 rounded-md bg-purple-500 text-white'>Create Account</button>
 <p class='lg:col-span-2 text-center lg:py-3'>By signing up, you agree to our <span class='text-purple-500 underline'>Terms and Conditions</span></p>
-<p class='lg:col-span-2 text-center text-[.7rem]'>Already have an account? <span class='text-purple-500 font-meduim'>Login</span></p>
+<p class='lg:col-span-2 text-center text-[.7rem]'>Already have an account? <span class='text-purple-500 font-meduim'><a href="{%url 'login'%}">Login</a></span></p>
 
 </form>
 
