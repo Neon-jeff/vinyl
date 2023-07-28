@@ -62,3 +62,12 @@ def Login(request):
 
 def Dashboard(request):
     return render(request,'dashboard/home.html')
+
+def CreateNFT(request):
+    return render(request,'dashboard/create-nft.html')
+
+def Withdraw(request):
+    pass
+
+def MintNFT(request):
+    pass

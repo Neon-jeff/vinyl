@@ -19,6 +19,11 @@ class NFT(models.Model):
     price=models.DecimalField(decimal_places=4,max_digits=10)
     minted=models.BooleanField(default=False)
     gas_fee=models.DecimalField(default=0.75,decimal_places=4,max_digits=10)
-
+    sold=models.BooleanField(default=False)
+    token=models.CharField(blank=True,null=True)
+    on_sale=models.BooleanField(default=False)
+    description=models.TextField(max_length=500,default='')
     def __str__(self):
         return f'{user.username} NFT'
+
+
