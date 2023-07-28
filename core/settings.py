@@ -13,6 +13,10 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os
 import environ
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
+
 env=environ.Env()
 environ.Env().read_env()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -48,6 +52,12 @@ INSTALLED_APPS = [
     'compressor',
      'compressor_toolkit'
 ]
+
+cloudinary.config(
+  cloud_name = env('C_NAME'),
+  api_key = env('C_KEY'),
+  api_secret = env('C_SECRET')
+)
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

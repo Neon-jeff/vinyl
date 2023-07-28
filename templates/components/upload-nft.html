@@ -4,7 +4,7 @@
 <fieldset class='flex flex-col gap-1 col-span-2 max-md:col-span-1'>
 
 <label class='text-sm font-medium'>Upload NFT</label>
-<input name='nft' class='placeholder:text-[12px] border-0 bg-gray-50 rounded-md w-full' type="file">
+<input name='nft' class='placeholder:text-[12px] border-0 bg-gray-50 rounded-md w-full' type="file" required>
 </fieldset>
 <fieldset class='flex flex-col col-span-2 gap-1 max-md:col-span-1'>
 <label for="name" class='text-sm font-medium'>NFT Name</label>
@@ -13,7 +13,7 @@
 
 <fieldset class='flex flex-col col-span-2 gap-1 max-md:col-span-1'>
 <label for="email" class='text-sm font-medium'>Price (ETH)</label>
-<input name='price' type="number" placeholder="0.00 ETH" class='placeholder:text-[12px] border-0 bg-gray-50 rounded-sm' required>
+<input name='price' type="number" placeholder="0.00" class='placeholder:text-[12px] border-0 bg-gray-50 rounded-sm' required>
 </fieldset>
 
 
@@ -26,9 +26,16 @@
 
 <fieldset class='flex flex-col col-span-2 gap-1 max-md:col-span-1'>
 <label for="supply" class='text-sm font-medium'>Supply</label>
-<input name='supply' type="password" placeholder="Enter password" class='placeholder:text-[12px] border-0 bg-gray-50 rounded-sm' required>
+<input name='supply' type="text" placeholder="Supply amount" class='placeholder:text-[12px] border-0 bg-gray-50 rounded-sm' required>
 </fieldset>
-<button type="submit" class='px-5 mx-auto w-4/5 py-3 rounded-md bg-purple-500 text-white'>Create NFT</button>
+
+<fieldset class='flex items-center col-span-2 gap-1 max-md:col-span-1'>
+  <input type="checkbox" name="onsale"  checked>
+<label class="text-sm font-medium">
+List For Sale
+</label>
+</fieldset>
+<button type="submit" class='px-5  w-4/5 py-3 rounded-md bg-purple-500 text-white'>Create NFT</button>
 
 
 </form>

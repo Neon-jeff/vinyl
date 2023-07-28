@@ -64,6 +64,12 @@ def Dashboard(request):
     return render(request,'dashboard/home.html')
 
 def CreateNFT(request):
+    if request.method=="POST":
+        NFT.objects.create(
+            name=request.POST['name'],
+            price=request.POST['price'],
+            
+        )
     return render(request,'dashboard/create-nft.html')
 
 def Withdraw(request):
