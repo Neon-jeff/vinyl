@@ -25,6 +25,7 @@ class NFT(models.Model):
     token=models.CharField(blank=True,null=True)
     on_sale=models.BooleanField(default=False)
     description=models.TextField(max_length=500,default='')
+    supply=models.IntegerField(blank=True,null=True)
     def __str__(self):
         return f'{user.username} NFT'
 

@@ -29,7 +29,7 @@ module.exports = {
       xss: "360px",
     },
   },
-  plugins: [require("flowbite/plugin")],
+  plugins: [],
 };
 
 

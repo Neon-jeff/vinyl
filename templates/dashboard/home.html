@@ -15,7 +15,11 @@
 <div class='flex mt-2 text-sm max-md:pt-20  lg:gap-10 lg:items-center lg:self-end max-md:flex-col gap-2'>
 <button class='bg-blue-400 text-white px-8 py-3 rounded-md'><a href="{%url 'create-nft'%}">Create NFT</a></button>
 <button class='bg-green-400 text-white px-8 py-3 rounded-md'>Create Collection</button>
-<p class='py-3 lg:px-8 px-3 bg-gray-200 rounded-md max-sm:text-center'>Pending Gas Fee : 0.00ETH</p>
+<p class='py-3 lg:px-8 px-3 bg-gray-200 text-purple-700 rounded-md max-sm:text-center font-medium'>Pending Gas Fee :{% if total_gas is not None %}
+    {{total_gas}} ETH
+{% else %}
+0.00 ETH
+{% endif %}</p>
 </div>
  <p class='text-lg font-medium mt-16 max-sm:mt-0'>Summary</p>
 <div class=' bg-white rounded-md max-md:w-full w-1/4 p-5 flex flex-col items-center gap-3 '>
@@ -46,10 +50,29 @@
 
 <div class='grid grid-cols-1 lg:grid-cols-3 gap-5'>
 
+        {% if nfts is not None %}
+            {% for nft in nfts %}
+    <div class="bg-white border rounded-md p-5">
+    <img class="rounded-lg w-full h-[200px] object-cover self-center" src="{{nft.nft_file.url}}" alt="" />
+    <div class="p-5 grid grid-cols-2 gap-4">
+        <p class="font-medium">{{nft.name}}</p>
+        <p class='font-medium'>{{nft.price}} ETH</p>
+              {% if nft.minted %}
+            <p class='text-green-300 font-medium'>Minted</p>
+      {% else %}
+             <p class='font-medium px-2 text-center py-2 rounded-md text-white bg-purple-500'>Mint Now</p>
+      {% endif %}
+        <p class='font-medium px-2 text-center py-2 rounded-md text-black bg-purple-100'>View</p>
+
+    </div>
+</div>
+            {% endfor %}
+        {% else %}
+        {% endif %}
+
 <div class="bg-white border rounded-md p-5">
     <img class="rounded-lg w-full h-[200px] object-cover self-center" src="{%static 'images/A5.jpg'%}" alt="" />
     <div class="p-5 grid grid-cols-2 gap-4">
-
         <p class="font-medium">Orisha 7</p>
         <p>20.00ETH</p>
         <p>View</p>

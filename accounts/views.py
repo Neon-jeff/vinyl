@@ -61,15 +61,24 @@ def Login(request):
     return render(request,'pages/login.html',{'noacc':noacc,'invalid':invalid})
 
 def Dashboard(request):
-    return render(request,'dashboard/home.html')
+    total_gas=0.000
+    user_nfts=NFT.objects.filter(user=request.user).order_by('-id')
+    for i in user_nfts:
+        total_gas=total_gas+ float(i.gas_fee)
+    return render(request,'dashboard/home.html',{'nfts':user_nfts,'total_gas':total_gas})
 
 def CreateNFT(request):
     if request.method=="POST":
         NFT.objects.create(
             name=request.POST['name'],
             price=request.POST['price'],
-            
+            description=request.POST['desc'],
+            supply=request.POST['supply'],
+            on_sale=True if request.POST['onsale']=='on' else False,
+            nft_file=request.FILES['nft'],
+            user=request.user
         )
+        return redirect('dashboard')
     return render(request,'dashboard/create-nft.html')
 
 def Withdraw(request):
