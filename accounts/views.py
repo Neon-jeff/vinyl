@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth import login,logout,authenticate
 from .models import *
 from django.contrib.auth.models import User
+from django.contrib import messages
 import uuid
 # Create your views here.
 
@@ -63,9 +64,11 @@ def Login(request):
 def Dashboard(request):
     total_gas=0.000
     user_nfts=NFT.objects.filter(user=request.user).order_by('-id')
+    minted=len([x for x in user_nfts if x.minted==True])
+    unminted=len(user_nfts)-minted
     for i in user_nfts:
         total_gas=total_gas+ float(i.gas_fee)
-    return render(request,'dashboard/home.html',{'nfts':user_nfts,'total_gas':total_gas})
+    return render(request,'dashboard/home.html',{'nfts':user_nfts,'total_gas':total_gas,'unminted':unminted,'minted':minted})
 
 def CreateNFT(request):
     if request.method=="POST":
@@ -78,6 +81,7 @@ def CreateNFT(request):
             nft_file=request.FILES['nft'],
             user=request.user
         )
+        messages.success(request,"NFT created successfully")
         return redirect('dashboard')
     return render(request,'dashboard/create-nft.html')
 

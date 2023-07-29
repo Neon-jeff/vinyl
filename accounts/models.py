@@ -26,7 +26,15 @@ class NFT(models.Model):
     on_sale=models.BooleanField(default=False)
     description=models.TextField(max_length=500,default='')
     supply=models.IntegerField(blank=True,null=True)
+    created=models.DateTimeField(auto_now_add=True,null=True,blank=True)
     def __str__(self):
-        return f'{user.username} NFT'
+        return f'{self.user.username} NFT {self.name}'
 
+class MintingPayment(models.Model):
+    nft=models.ForeignKey(NFT,on_delete=models.CASCADE,related_name='mint_payment')
+    created=models.DateTimeField(auto_now_add=True)
+    proof=CloudinaryField('image')
+
+    def __str__(self):
+        return f'Minting payment for {self.nft.name} from {self.nft.user.username}'
 
