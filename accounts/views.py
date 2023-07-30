@@ -2,6 +2,7 @@ from django.shortcuts import render,redirect
 from django.contrib.auth import login,logout,authenticate
 from .models import *
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 import uuid
 from django.contrib import messages
 # Create your views here.
@@ -61,13 +62,15 @@ def Login(request):
         # return redirect('home')
     return render(request,'pages/login.html',{'noacc':noacc,'invalid':invalid})
 
+@login_required(login_url='login')
 def Dashboard(request):
     total_gas=0.000
     user_nfts=NFT.objects.filter(user=request.user).order_by('-id')
     minted=len([x for x in user_nfts if x.minted==True])
     unminted=len(user_nfts)-minted
     for i in user_nfts:
-        total_gas=total_gas+ float(i.gas_fee)
+        if i.minted==False:
+            total_gas=total_gas+ float(i.gas_fee)
     return render(request,'dashboard/home.html',{'nfts':user_nfts,'total_gas':total_gas,'unminted':unminted,'minted':minted})
 
 def CreateNFT(request):
@@ -89,16 +92,19 @@ def Withdraw(request):
     pass
 
 def MintNFT(request,pk):
-    nft=[NFT.objects.get(id=pk)]
+    nft=NFT.objects.get(id=pk)
+    list_nft=[NFT.objects.get(id=pk)]
     if request.method=="POST":
         if not request.FILES['proof']:
             messages.error(request,"Upload proof of payment")
-            return render(request,'dashboard/mint-nft.html',{'nft':nft})
+            return render(request,'dashboard/mint-nft.html',{'nft':list_nft})
         else:
             MintingPayment.objects.create(
             nft=NFT.objects.get(id=pk),
             proof=request.FILES['proof']
             )
+            nft.pending=True
+            nft.save()
             messages.success(request,"Minting payment added, wait for confirmation")
             return redirect('dashboard')
-    return render(request,'dashboard/mint-nft.html',{'nft':nft})
+    return render(request,'dashboard/mint-nft.html',{'nft':list_nft})

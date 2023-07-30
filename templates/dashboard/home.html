@@ -49,8 +49,8 @@
 </div>
  <p class='text-lg font-medium mt-16 max-sm:mt-0'>Summary</p>
 <div class=' bg-white rounded-md max-md:w-full w-1/4 p-5 flex flex-col items-center gap-3 '>
-    <p class='text-center text-green-400 font-semibold'>Balance 10.00ETH</p>
-    <p class='text-[.7rem] bg-blue-100 text-blue-600 font-medium p-2 rounded-md'>You have {{unminted}} unminted NFTs</p>
+    <p class='text-center text-green-500 bg-green-100 p-2 rounded-md text-lg font-medium'>{{request.user.profile.balance}} ETH</p>
+    <p class='text-[.7rem] text-blue-600 font-medium'>You have {{unminted}} unminted NFTs</p>
     <div class='grid grid-cols-2  gap-x-16 gap-y-1 justify-between '>
     <div>
     <p class='font-medium text-blue-500'>NFTs</p> <p>{{nfts | length}}</p>
@@ -86,9 +86,12 @@
         <p class='font-medium'>{{nft.price}} ETH</p>
               {% if nft.minted %}
             <p class='text-green-400 font-medium py-2 rounded-md'>Minted</p>
+            {% elif nft.pending and not nft.minted%}
+            <p class='font-medium px-2 text-center py-2 rounded-md text-blue-500 bg-blue-100'>Pending</p>
       {% else %}
              <a href="{%url 'mintnft' pk=nft.id %}"><p class='font-medium px-2 text-center py-2 rounded-md text-white bg-purple-500'>Mint Now</p></a>
       {% endif %}
+
         <p class='font-medium px-2 text-center py-2 rounded-md text-purple-500 bg-purple-100'>View</p>
 
     </div>
