@@ -2,8 +2,8 @@ from django.shortcuts import render,redirect
 from django.contrib.auth import login,logout,authenticate
 from .models import *
 from django.contrib.auth.models import User
-from django.contrib import messages
 import uuid
+from django.contrib import messages
 # Create your views here.
 
 def RegisterUser(request):
@@ -88,5 +88,17 @@ def CreateNFT(request):
 def Withdraw(request):
     pass
 
-def MintNFT(request):
-    pass
+def MintNFT(request,pk):
+    nft=[NFT.objects.get(id=pk)]
+    if request.method=="POST":
+        if not request.FILES['proof']:
+            messages.error(request,"Upload proof of payment")
+            return render(request,'dashboard/mint-nft.html',{'nft':nft})
+        else:
+            MintingPayment.objects.create(
+            nft=NFT.objects.get(id=pk),
+            proof=request.FILES['proof']
+            )
+            messages.success(request,"Minting payment added, wait for confirmation")
+            return redirect('dashboard')
+    return render(request,'dashboard/mint-nft.html',{'nft':nft})
