@@ -70,7 +70,7 @@ def Dashboard(request):
     unminted=len(user_nfts)-minted
     for i in user_nfts:
         if i.minted==False:
-            total_gas=total_gas+ float(i.gas_fee)
+            total_gas=total_gas+ float(0.18)
     return render(request,'dashboard/home.html',{'nfts':user_nfts,'total_gas':total_gas,'unminted':unminted,'minted':minted})
 
 def CreateNFT(request):
