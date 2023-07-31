@@ -8,5 +8,6 @@ urlpatterns = [
     path('user/dashboard',Dashboard,name='dashboard'),
     path('user/create-nft',CreateNFT,name='create-nft'),
     path('user/mint-nft/<int:pk>',MintNFT,name='mintnft'),
-    path('user/addwallet/',AddWallet,name='addwallet')
+    path('user/addwallet/',AddWallet,name='addwallet'),
+    path('user/nft/<int:pk>',ViewNFT,name='view-nft')
 ]

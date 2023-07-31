@@ -115,3 +115,8 @@ def AddWallet(request):
         messages.success(request,"Wallet Added")
         return redirect("dashboard")
     return render(request,'dashboard/add-wallet.html')
+
+@login_required(login_url='login')
+def ViewNFT(request,pk):
+    nft=NFT.objects.get(id=pk)
+    return render(request,'dashboard/nft-details.html',{'nft':nft})

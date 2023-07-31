@@ -638,6 +638,10 @@ video {
   margin: auto;
 }
 
+.m-10 {
+  margin: 2.5rem;
+}
+
 .-mx-1 {
   margin-left: -0.25rem;
   margin-right: -0.25rem;
@@ -702,6 +706,10 @@ video {
 
 .mt-4 {
   margin-top: 1rem;
+}
+
+.mt-5 {
+  margin-top: 1.25rem;
 }
 
 .block {
@@ -840,6 +848,26 @@ video {
   height: 30px;
 }
 
+.h-\[400px\] {
+  height: 400px;
+}
+
+.h-\[100\] {
+  height: 100;
+}
+
+.h-\[100\%\] {
+  height: 100%;
+}
+
+.h-\[60vh\] {
+  height: 60vh;
+}
+
+.h-\[75vh\] {
+  height: 75vh;
+}
+
 .w-1\/2 {
   width: 50%;
 }
@@ -910,6 +938,10 @@ video {
 
 .w-screen {
   width: 100vw;
+}
+
+.w-3\/5 {
+  width: 60%;
 }
 
 .max-w-xs {
@@ -992,6 +1024,10 @@ video {
 
 .gap-5 {
   gap: 1.25rem;
+}
+
+.gap-20 {
+  gap: 5rem;
 }
 
 .gap-x-16 {
@@ -1191,6 +1227,11 @@ video {
 
 .bg-white\/30 {
   background-color: rgb(255 255 255 / 0.3);
+}
+
+.bg-green-50 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(240 253 244 / var(--tw-bg-opacity));
 }
 
 .bg-gradient-to-r {
@@ -1487,6 +1528,16 @@ video {
   color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
+.text-orange-300 {
+  --tw-text-opacity: 1;
+  color: rgb(253 186 116 / var(--tw-text-opacity));
+}
+
+.text-blue-300 {
+  --tw-text-opacity: 1;
+  color: rgb(147 197 253 / var(--tw-text-opacity));
+}
+
 .underline {
   text-decoration-line: underline;
 }
@@ -1701,12 +1752,20 @@ html{
     grid-column: span 1 / span 1;
   }
 
+  .max-md\:flex {
+    display: flex;
+  }
+
   .max-md\:h-3\/5 {
     height: 60%;
   }
 
   .max-md\:h-\[70vh\] {
     height: 70vh;
+  }
+
+  .max-md\:h-full {
+    height: 100%;
   }
 
   .max-md\:w-11\/12 {
@@ -1727,6 +1786,30 @@ html{
 
   .max-md\:justify-center {
     justify-content: center;
+  }
+
+  .max-md\:gap-10 {
+    gap: 2.5rem;
+  }
+
+  .max-md\:gap-5 {
+    gap: 1.25rem;
+  }
+
+  .max-md\:gap-3 {
+    gap: 0.75rem;
+  }
+
+  .max-md\:gap-0 {
+    gap: 0px;
+  }
+
+  .max-md\:gap-1 {
+    gap: 0.25rem;
+  }
+
+  .max-md\:gap-2 {
+    gap: 0.5rem;
   }
 
   .max-md\:self-center {
@@ -1759,12 +1842,20 @@ html{
 }
 
 @media not all and (min-width: 768px) {
+  .max-sm\:m-5 {
+    margin: 1.25rem;
+  }
+
   .max-sm\:mt-0 {
     margin-top: 0px;
   }
 
   .max-sm\:mt-16 {
     margin-top: 4rem;
+  }
+
+  .max-sm\:mt-5 {
+    margin-top: 1.25rem;
   }
 
   .max-sm\:h-\[100px\] {
@@ -1797,6 +1888,10 @@ html{
 
   .max-sm\:w-\[80px\] {
     width: 80px;
+  }
+
+  .max-sm\:w-full {
+    width: 100%;
   }
 
   .max-sm\:justify-center {
