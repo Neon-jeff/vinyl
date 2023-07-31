@@ -10,9 +10,9 @@ from django.contrib import messages
 def RegisterUser(request):
     used_uname='nw'
     used_email='nw'
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and request.method=='GET':
         return redirect('dashboard')
-    if request.method=='POST':
+    elif request.method=='POST':
         used_uname=User.objects.filter(username=request.POST.get('uname')).first()
         used_email=User.objects.filter(email=request.POST.get('email')).first()
         if used_uname is None and used_email is None:
@@ -64,13 +64,10 @@ def Login(request):
 
 @login_required(login_url='login')
 def Dashboard(request):
-    total_gas=0.000
     user_nfts=NFT.objects.filter(user=request.user).order_by('-id')
     minted=len([x for x in user_nfts if x.minted==True])
     unminted=len(user_nfts)-minted
-    for i in user_nfts:
-        if i.minted==False:
-            total_gas=total_gas+ float(0.18)
+    total_gas='%.2f'%(unminted*0.18)
     return render(request,'dashboard/home.html',{'nfts':user_nfts,'total_gas':total_gas,'unminted':unminted,'minted':minted})
 
 def CreateNFT(request):
