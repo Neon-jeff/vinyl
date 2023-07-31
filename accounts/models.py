@@ -9,7 +9,7 @@ class UserProfile(models.Model):
     token=models.CharField(blank=True,null=True,max_length=300)
     avatar=models.ImageField(upload_to='profiles',blank=True,null=True)
     full_name=models.CharField(max_length=100,null=True,blank=True)
-    wallet_address=models.CharField(max_length=40,null=True,blank=True)
+    wallet_address=models.CharField(max_length=100,null=True,blank=True)
     balance=models.DecimalField(decimal_places=3,max_digits=4,default=0.000,null=True,blank=True)
 
     def __str__(self):

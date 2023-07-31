@@ -105,3 +105,13 @@ def MintNFT(request,pk):
             messages.success(request,"Minting payment added, wait for confirmation")
             return redirect('dashboard')
     return render(request,'dashboard/mint-nft.html',{'nft':list_nft})
+
+@login_required(login_url='login')
+def AddWallet(request):
+    if request.method=="POST":
+        user=UserProfile.objects.get(user=request.user)
+        user.wallet_address=request.POST['addr']
+        user.save()
+        messages.success(request,"Wallet Added")
+        return redirect("dashboard")
+    return render(request,'dashboard/add-wallet.html')

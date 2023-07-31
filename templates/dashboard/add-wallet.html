@@ -32,22 +32,30 @@
     {% endif %}
 </div>
 
-    <form action="" method="post" enctype='multipart/form-data' class='w-1/3 max-md:w-11/12 p-5 bg-white mx-auto mt-10 rounded-md flex flex-col gap-3'>
+    <form action="" method="post" class='w-1/3 max-md:w-11/12 p-5 bg-white mx-auto mt-10 rounded-md flex flex-col gap-5'>
+     <h1 class='text-xl font-bold text-center bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400 inline-block text-transparent  bg-clip-text'>ADD YOUR WALLET ADDRESS</h1>
     {% csrf_token %}
-        <h1 class='text-xl font-bold text-center bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400 inline-block text-transparent  bg-clip-text'>MINT YOUR NFT</h1>
-        {% for file in nft %}
-             <img src="{{file.nft_file.url}}" alt="" class='h-[70px] w-full object-cover rounded-md'>
-        {% endfor %}
-        <div class='h-full bg-blue-50 py-1 rounded-md flex flex-col gap-1 items-center'>
-            <p class='font-medium max-sm:text-[.7rem]'>Pay 0.18ETH minting fee to this address</p>
-            <img src="{%static 'images/frame.png'%}" class='h-[100px] object-contain w-full' alt="">
-            <p class='bg-white w-11/12 p-2 rounded-md font-medium text-[.7rem] max-sm:text-[.55rem] flex items-center gap-1'><input type="text" name="eth" value="0x2588672098e60AD7c35D1A8CE7896bcb6F0f39Ea" placeholder="0x2588672098e60AD7c35D1A8CE7896bcb6F0f39Ea" id="eth" class="text-[.7rem] max-sm:text-[.55rem] border-0 bg-white  read-only:text-[.7rem] read-only:w-full " readonly> <span data-clipboard-target='#eth' class='bg-black btn rounded-md text-white copy cursor-pointer p-2 max-sm:p-1' >Copy</span></p>
+        <div class=' bg-blue-50 p-2 rounded-md grid gap-y-2 grid-cols-3 gap-2 items-center'>
+            <p class='col-span-3 text-center text-blue-500 font-semibold'>Common Wallets to Use</p>
+            <img src="{%static 'images\1683020772metamask-logo-png.webp'%}" class='h-[20px] w-full object-contain' alt="">
+            <img src="{%static 'images\Binance-Logo.wine.png'%}" class='h-[30px] w-full object-cover' alt="">
+            <img src="{%static 'images\Coinbase.svg.png'%}" class='h-[20px] w-full object-contain' alt="">
+            <img src="{%static 'images\horizontal_blue.svg'%}" class='h-[20px] w-full object-cover' alt="">
         </div>
         <fieldset class='flex gap-2 flex-col font-medium'>
-        <label for="file" class="text-blue-500">Upload Payment Proof (JPG, PNG, PDF)</label>
-        <input type="file" name="proof" id="file" class='rounded-md' required>
+        <label for="addr" class="text-blue-500">Network</label>
+        <input type="text" name="addr" id="addr" class='rounded-md border-0 bg-gray-50' required disabled value='ERC-20'>
         </fieldset>
-        <button class='bg-blue-500 text-white py-3 rounded-md'>Mint NFT</button>
+
+        <fieldset class='flex gap-2 flex-col font-medium'>
+        <label for="addr" class="text-blue-500">ETH Address</label>
+        {% if request.user.profile.wallet_address %}
+        <input type="text" name="addr" id="addr" class='rounded-md' required maxlength="42" minlength="42" value={{request.user.profile.wallet_address}}>
+        {% else %}
+        <input type="text" name="addr" id="addr" class='rounded-md' required maxlength="42" minlength="42" value="">
+        {% endif %}
+        </fieldset>
+        <button class='bg-blue-500 text-white py-3 rounded-md'>Add Wallet</button>
     </form>
     <script src="{%static 'js/copy.js'%}"></script>
 </section>
