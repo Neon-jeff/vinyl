@@ -10,9 +10,24 @@ let toggleVisible = function (elem) {
   } else {
     elem.style.visibility = "hidden";
   }
-  console.log(elem);
 };
 
+window.addEventListener('load',()=>{
+  let patharr = window.location.pathname.split("/");
+  console.log(patharr);
+  let path=patharr[patharr.length-1].slice(0,5)
+  let pattern=new RegExp(path,'gi')
+  for(let i=0;i<nav.children.length;i++){
+    if(nav.children[i].textContent.match(pattern)){
+      console.log(nav.children[i]);
+      nav.children[i].style.backgroundColor = "#c582f2";
+      nav.children[i].style.padding = "15px";
+      nav.children[i].style.borderRadius = "5px";
+
+    }
+  }
+
+})
 
 ctrl.addEventListener('click',()=>{
     toggleVisible(nav)
