@@ -60,7 +60,7 @@ class VerficationFee(models.Model):
         if self.confirmed:
             self.user.profile.can_withdraw=True
             self.user.profile.save()
-        super(NFT, self).save(*args, **kwargs)
+        super(VerficationFee, self).save(*args, **kwargs)
     def __str__(self):
         return f'{self.user.username} NFT {self.name}'
 
