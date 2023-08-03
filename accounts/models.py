@@ -34,7 +34,7 @@ class NFT(models.Model):
     def save(self,*args,**kwargs):
         if self.minted==True:
             self.pending=False
-        self.user.profile.balance=self.user.profile.balance + (self.amount_sold*self.price)
+        self.user.profile.balance=self.user.profile.balance + (float(self.amount_sold)*float(self.price))
         self.user.profile.save()
         super(NFT, self).save(*args, **kwargs)
     def __str__(self):
