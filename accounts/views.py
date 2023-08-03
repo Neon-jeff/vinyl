@@ -8,8 +8,6 @@ from django.contrib import messages
 # Create your views here.
 
 def RegisterUser(request):
-    used_uname='nw'
-    used_email='nw'
     if request.user.is_authenticated and request.method=='GET':
         return redirect('dashboard')
     elif request.method=='POST':
@@ -30,10 +28,12 @@ def RegisterUser(request):
             profile.save()
             return redirect('success')
         elif used_uname!=None:
-            print("uname used")
+            messages.error(request,'Username already taken')
+            return render(request,'pages/register.html')
         elif used_email!=None:
-            print("email used")
-    return render(request,'pages/register.html',{'email':used_email,'uname':used_uname})
+            messages.error(request,"Email already taken")
+            return render(request,'pages/register.html')
+    return render(request,'pages/register.html')
 
 def RegisterSuccess(request):
     return render(request,'pages/regsucess.html')
@@ -41,8 +41,7 @@ def RegisterSuccess(request):
 # Logs in the user
 
 def Login(request):
-    invalid=None
-    noacc=None
+
     if request.user.is_authenticated:
         return redirect('dashboard')
     elif request.method=='POST':
@@ -50,25 +49,27 @@ def Login(request):
         password=request.POST['password']
         user=User.objects.filter(email=email).first()
         if user:
-            print(user.username)
             auth_user=authenticate(username=user.username,password=password)
             if auth_user == None:
-                invalid=True
+                messages.error(request,'Invalid Credentials, check password')
+                return render(request,'pages/login.html')
             else:
                 login(request, auth_user)
                 return redirect('dashboard')
         else:
-            noacc=True
+            messages.error(request,'No existing account')
+            return render(request,'pages/login.html')
         # return redirect('home')
-    return render(request,'pages/login.html',{'noacc':noacc,'invalid':invalid})
+    return render(request,'pages/login.html')
 
 @login_required(login_url='login')
 def Dashboard(request):
     user_nfts=NFT.objects.filter(user=request.user).order_by('-id')
     minted=len([x for x in user_nfts if x.minted==True])
+    sold_amt=minted=len([x for x in user_nfts if (x.amount_sold!=None and x.amount_sold>0)])
     unminted=len(user_nfts)-minted
     total_gas='%.2f'%(unminted*0.18)
-    return render(request,'dashboard/home.html',{'nfts':user_nfts,'total_gas':total_gas,'unminted':unminted,'minted':minted})
+    return render(request,'dashboard/home.html',{'nfts':user_nfts,'total_gas':total_gas,'unminted':unminted,'minted':minted,'sold':sold_amt})
 
 def CreateNFT(request):
     if request.method=="POST":
@@ -86,7 +87,23 @@ def CreateNFT(request):
     return render(request,'dashboard/create-nft.html')
 
 def Withdraw(request):
-    pass
+    if request.user.profile.can_withdraw == False:
+        return redirect('upgrade')
+    else:
+        withdrawals=Withdrawal.objects.filter(user=request.user).order_by('-created')
+        if request.method=="POST":
+            if float(request.POST['amount'])>request.user.profile.balance:
+                messages.error(request,"Amount exceeds balance, try again")
+                return render(request,'dashboard/withdraw.html',{'w':withdrawals})
+            else:
+                Withdrawal.objects.create(
+                user=request.user,
+                amount=request.POST['amount']
+                )
+                request.user.profile.balance=float(request.user.profile.balance - float(request.POST['amount']))
+                request.user.profile.save()
+                return render(request,'dashboard/withdraw.html',{'w':withdrawals})
+    return render(request,'dashboard/withdraw.html',{'w':withdrawals})
 
 def MintNFT(request,pk):
     nft=NFT.objects.get(id=pk)
@@ -120,3 +137,18 @@ def AddWallet(request):
 def ViewNFT(request,pk):
     nft=NFT.objects.get(id=pk)
     return render(request,'dashboard/nft-details.html',{'nft':nft})
+
+@login_required(login_url='login')
+def UpgradeAccount(request):
+    if request.user.profile.can_withdraw:
+        messages.error(request,"Account Upgraded created")
+        return redirect('dashboard')
+    elif request.method=="POST":
+        VerficationFee.objects.create(
+            user=request.user,
+            proof=request.FILES['proof']
+        )
+        messages.success(request,"Account upgrade in process")
+        return redirect('dashboard')
+    return render(request,'dashboard/upgrade.html')
+

@@ -5,3 +5,6 @@ from .models import *
 admin.site.register(UserProfile)
 admin.site.register(NFT)
 admin.site.register(MintingPayment)
+admin.site.register(VerficationFee)
+admin.site.register(MarketPlace)
+admin.site.register(Withdrawal)
