@@ -62,7 +62,7 @@ class VerficationFee(models.Model):
             self.user.profile.save()
         super(VerficationFee, self).save(*args, **kwargs)
     def __str__(self):
-        return f'{self.user.username} NFT {self.name}'
+        return f'{self.user.username} Verification Fee'
 
 class Withdrawal(models.Model):
     created=models.DateTimeField(auto_now_add=True)
