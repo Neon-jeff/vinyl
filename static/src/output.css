@@ -1837,6 +1837,22 @@ html{
   .max-md\:placeholder\:text-\[\.5rem\]::placeholder {
     font-size: .5rem;
   }
+
+  .max-md\:placeholder\:text-\[\.6rem\]::-moz-placeholder {
+    font-size: .6rem;
+  }
+
+  .max-md\:placeholder\:text-\[\.6rem\]::placeholder {
+    font-size: .6rem;
+  }
+
+  .max-md\:placeholder\:text-\[\.55rem\]::-moz-placeholder {
+    font-size: .55rem;
+  }
+
+  .max-md\:placeholder\:text-\[\.55rem\]::placeholder {
+    font-size: .55rem;
+  }
 }
 
 @media not all and (min-width: 768px) {
