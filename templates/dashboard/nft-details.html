@@ -20,7 +20,7 @@
     {% elif nft.minted == False and nft.pending == True %}
     <a href="" class="bg-blue-100 text-center text-blue-500 font-medium py-2 w-1/2 max-md:w-full rounded-md">Pending</a>
     {% else %}
-    <a href="" class="bg-purple-500 text-center text-white font-medium py-2 w-1/2 max-md:w-full rounded-md">Mint Now</a>
+    <a href="{% url 'mintnft' pk=nft.id%}" class="bg-purple-500 text-center text-white font-medium py-2 w-1/2 max-md:w-full rounded-md">Mint Now</a>
     {% endif %}
     </div>
 

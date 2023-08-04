@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from django.contrib.auth import login,logout,authenticate
 from .models import *
+from django.db.models import Q
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 import uuid
@@ -152,3 +153,13 @@ def UpgradeAccount(request):
         return redirect('dashboard')
     return render(request,'dashboard/upgrade.html')
 
+
+def SearcUsers(request):
+    if request.method=='GET':
+        users=User.objects.filter(Q(username__startswith=request.GET['search']))
+        return render(request,'pages/search.html',{'users':users})
+
+def UserDetails(request,pk):
+    user=User.objects.get(id=pk)
+    nfts=NFT.objects.filter(user=user,minted=True)
+    return render(request,'pages/user-details.html',{'user':user,'nfts':nfts})

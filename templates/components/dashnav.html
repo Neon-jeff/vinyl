@@ -3,7 +3,15 @@
 
 <section class='bg-white py-4 text-black  lg:mb-0 relative'>
 <div class=' flex w-4/5 mx-auto justify-between items-center'>
- <div class='flex items-center gap-3 cursor-pointer ctr'><i class="fa-solid fa-bars" style="font-size:20px;"></i><p class='text-xl'><span class='max-md:invisible text-xl'>MENU</span></p></div>
+<div class='w-4/5 mx-auto flex items-center gap-3 cursor-pointer'>
+ <div class='ctr w-4/5 mx-auto flex items-center gap-3 cursor-pointer'><i class="fa-solid fa-bars"></i><p class='text-xl'>Menu</p></div>
+  <form action="" method="get" class='relative'>
+  <input type="text" class='rounded-md w-full border-gray-100 border-2 placeholder:text-[.7rem] max-md:placeholder:text-[.5rem]  placeholder:text-gray-400' placeholder='Search Creators'>
+  <button class='absolute p-2 right-2 top-1 text-grey-400'>
+    <i class="fa-solid fa-magnifying-glass" style=" font-size:15px;"></i>
+  </button>
+  </form>
+</div>
 <div class='flex items-center gap-2 cursor-pointer'>
 <button id="dropdownInformationButton" data-dropdown-toggle="dropdownInformation" class="">
      <i class="fas fa-user-circle fa-lg" style=" font-size:30px; padding-top:20px;"></i>

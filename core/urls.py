@@ -19,11 +19,14 @@ from django.urls import path,include
 from django.views.generic import TemplateView
 from django.conf.urls.static import static
 from django.conf import settings
+from accounts.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("", TemplateView.as_view(template_name="pages/home.html"),name='home'),
-    path('accounts/', include('accounts.urls'))
+    path('accounts/', include('accounts.urls')),
+    path('search-users/',SearcUsers,name='search'),
+    path('user-details/<int:pk>',UserDetails,name='details')
 ]
 
 urlpatterns += static(settings.MEDIA_URL,
