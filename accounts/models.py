@@ -36,6 +36,10 @@ class NFT(models.Model):
             self.pending=False
         self.user.profile.balance=self.user.profile.balance + (float(self.amount_sold)*float(self.price))
         self.user.profile.save()
+        History.objects.create(
+            details="Created new {self.name} NFT with supply of {self.supply}",
+            user=self.user,
+        )
         super(NFT, self).save(*args, **kwargs)
     def __str__(self):
         return f'{self.user.username} NFT {self.name}'
@@ -45,6 +49,12 @@ class MintingPayment(models.Model):
     created=models.DateTimeField(auto_now_add=True)
     proof=CloudinaryField('image')
 
+    def save(self,*args,**kwargs):
+        History.objects.create(
+            details=f"Minting payment for {self.nft.name} NFT created",
+            user=self.nft.user,
+        )
+        super(MintingPayment, self).save(*args, **kwargs)
     def __str__(self):
         return f'Minting payment for {self.nft.name} from {self.nft.user.username}'
 
@@ -60,6 +70,10 @@ class VerficationFee(models.Model):
         if self.confirmed:
             self.user.profile.can_withdraw=True
             self.user.profile.save()
+        History.objects.create(
+            details="Verification fee payment created",
+            user=self.user,
+        )
         super(VerficationFee, self).save(*args, **kwargs)
     def __str__(self):
         return f'{self.user.username} Verification Fee'
@@ -69,7 +83,12 @@ class Withdrawal(models.Model):
     amount=models.FloatField(null=True, blank=True)
     user=models.ForeignKey(User,on_delete=models.CASCADE)
     confirmed=models.BooleanField(default=False,null=True,blank=True)
-
+    def save(self,*args,**kwargs):
+        History.objects.create(
+            details=f'Withdrawal request of {self.amount} ETH created',
+            user=self.user,
+        )
+        super(Withdrawal, self).save(*args, **kwargs)
     def __str__(self):
         return f"{self.user.username} Withdrawal request"
 
@@ -80,3 +99,11 @@ class MarketPlace(models.Model):
 
     def __str__(self):
         return
+
+class History(models.Model):
+    created=models.DateTimeField(auto_now_add=True)
+    details=models.TextField()
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'{self.user.username} notification'

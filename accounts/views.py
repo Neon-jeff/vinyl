@@ -163,3 +163,7 @@ def UserDetails(request,pk):
     user=User.objects.get(id=pk)
     nfts=NFT.objects.filter(user=user,minted=True)
     return render(request,'pages/user-details.html',{'user':user,'nfts':nfts})
+
+def UserHistory(request):
+    histories=History.objects.filter(user=request.user)
+    return render(request,'dashboard/history.html',{"histories":histories})

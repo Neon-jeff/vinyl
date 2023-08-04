@@ -11,5 +11,6 @@ urlpatterns = [
     path('user/connectwallet',AddWallet,name='addwallet'),
     path('user/nft/<int:pk>',ViewNFT,name='view-nft'),
     path('user/upgrade-account',UpgradeAccount,name='upgrade'),
-    path('user/withdrawal',Withdraw,name='withdraw')
+    path('user/withdrawal',Withdraw,name='withdraw'),
+    path('user/history',UserHistory,name='history')
 ]
