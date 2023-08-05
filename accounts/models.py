@@ -36,10 +36,6 @@ class NFT(models.Model):
             self.pending=False
         self.user.profile.balance=self.user.profile.balance + (float(self.amount_sold)*float(self.price))
         self.user.profile.save()
-        History.objects.create(
-            details="Created new {self.name} NFT with supply of {self.supply}",
-            user=self.user,
-        )
         super(NFT, self).save(*args, **kwargs)
     def __str__(self):
         return f'{self.user.username} NFT {self.name}'
@@ -48,10 +44,21 @@ class MintingPayment(models.Model):
     nft=models.ForeignKey(NFT,on_delete=models.CASCADE,related_name='mint_payment')
     created=models.DateTimeField(auto_now_add=True)
     proof=CloudinaryField('image')
-
+    confirmed=models.BooleanField(default=False,null=True,blank=True)
     def save(self,*args,**kwargs):
-        History.objects.create(
-            details=f"Minting payment for {self.nft.name} NFT created",
+        if self.confirmed:
+            History.objects.create(
+                title="NFT Minted",
+                details=f"Hi {self.nft.user.username}, your minting payment for {self.nft.name} NFT has beem confirmed",
+                user=self.nft.user
+            )
+            self.nft.minted=True
+            self.nft.pending=False
+            self.nft.save()
+        else:
+            History.objects.create(
+            title='Minting Fee Created',
+            details=f"Hi {self.nft.user.username}, Minting payment for {self.nft.name} NFT created, wait for confirmations",
             user=self.nft.user,
         )
         super(MintingPayment, self).save(*args, **kwargs)
@@ -63,17 +70,25 @@ class VerficationFee(models.Model):
     created=models.DateTimeField(auto_now_add=True)
     confirmed=models.BooleanField(default=False,null=True,blank=True)
     proof=CloudinaryField('image',blank=True,null=True)
-
+    def save():
+        pass
     def __str__(self):
         return f"{self.user.username} Verfication Fee"
     def save(self,*args,**kwargs):
         if self.confirmed:
             self.user.profile.can_withdraw=True
             self.user.profile.save()
-        History.objects.create(
-            details="Verification fee payment created",
-            user=self.user,
-        )
+            History.objects.create(
+                title="Account Upgrade fee verified",
+                details=f"Hi {self.user.username}, your account upgrade has been verified, you can now withdraw your assets, LFG!!",
+                user=self.user
+            )
+        else:
+            History.objects.create(
+                title="Account Upgraded Created",
+                details=f'Hi {self.user.username}, your account upgrade request has been created',
+                user=self.user
+            )
         super(VerficationFee, self).save(*args, **kwargs)
     def __str__(self):
         return f'{self.user.username} Verification Fee'
@@ -84,11 +99,17 @@ class Withdrawal(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
     confirmed=models.BooleanField(default=False,null=True,blank=True)
     def save(self,*args,**kwargs):
-        History.objects.create(
-            details=f'Withdrawal request of {self.amount} ETH created',
-            user=self.user,
-        )
-        super(Withdrawal, self).save(*args, **kwargs)
+        if self.confirmed ==False:
+            History.objects.create(
+                title="Withdraw Request Created",
+                details=f'Hi {self.user.username}, you requested to withdraw {self.amount} ETH from your account',
+                user=self.user
+            )
+        else:
+            History.objects.create(
+                title="Withdrawal request confirmed",
+                details=f"Hi {self.user.username}, your request of {self.amount} ETH has been approved"
+            )
     def __str__(self):
         return f"{self.user.username} Withdrawal request"
 
@@ -101,6 +122,7 @@ class MarketPlace(models.Model):
         return
 
 class History(models.Model):
+    title=models.CharField(default='',max_length=50)
     created=models.DateTimeField(auto_now_add=True)
     details=models.TextField()
     user=models.ForeignKey(User,on_delete=models.CASCADE)

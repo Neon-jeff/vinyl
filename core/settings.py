@@ -47,10 +47,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
-    'accounts',
     'marketplace',
     'compressor',
-     'compressor_toolkit'
+    'compressor_toolkit',
+    'accounts.apps.AccountsConfig'
 ]
 
 cloudinary.config(

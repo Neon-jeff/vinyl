@@ -67,7 +67,7 @@ def Login(request):
 def Dashboard(request):
     user_nfts=NFT.objects.filter(user=request.user).order_by('-id')
     minted=len([x for x in user_nfts if x.minted==True])
-    sold_amt=minted=len([x for x in user_nfts if (x.amount_sold!=None and x.amount_sold>0)])
+    sold_amt=len([x for x in user_nfts if (x.amount_sold!=None and x.amount_sold>0)])
     unminted=len(user_nfts)-minted
     total_gas='%.2f'%(unminted*0.18)
     return render(request,'dashboard/home.html',{'nfts':user_nfts,'total_gas':total_gas,'unminted':unminted,'minted':minted,'sold':sold_amt})
@@ -165,5 +165,5 @@ def UserDetails(request,pk):
     return render(request,'pages/user-details.html',{'user':user,'nfts':nfts})
 
 def UserHistory(request):
-    histories=History.objects.filter(user=request.user)
+    histories=History.objects.filter(user=request.user).order_by('-created')
     return render(request,'dashboard/history.html',{"histories":histories})
