@@ -110,6 +110,7 @@ class Withdrawal(models.Model):
                 title="Withdrawal request confirmed",
                 details=f"Hi {self.user.username}, your request of {self.amount} ETH has been approved"
             )
+        super(Withdrawal, self).save(*args, **kwargs)
     def __str__(self):
         return f"{self.user.username} Withdrawal request"
 

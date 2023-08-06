@@ -88,10 +88,11 @@ def CreateNFT(request):
     return render(request,'dashboard/create-nft.html')
 
 def Withdraw(request):
+    withdrawals=Withdrawal.objects.filter(user=request.user).order_by('-created')
+    print(withdrawals)
     if request.user.profile.can_withdraw == False:
         return redirect('upgrade')
     else:
-        withdrawals=Withdrawal.objects.filter(user=request.user).order_by('-created')
         if request.method=="POST":
             if float(request.POST['amount'])>request.user.profile.balance:
                 messages.error(request,"Amount exceeds balance, try again")
@@ -103,6 +104,7 @@ def Withdraw(request):
                 )
                 request.user.profile.balance=float(request.user.profile.balance - float(request.POST['amount']))
                 request.user.profile.save()
+                messages.success(request,"Withdrawal pending,please for confirmation")
                 return render(request,'dashboard/withdraw.html',{'w':withdrawals})
     return render(request,'dashboard/withdraw.html',{'w':withdrawals})
 
@@ -164,6 +166,12 @@ def UserDetails(request,pk):
     nfts=NFT.objects.filter(user=user,minted=True)
     return render(request,'pages/user-details.html',{'user':user,'nfts':nfts})
 
+@login_required(login_url='login')
 def UserHistory(request):
     histories=History.objects.filter(user=request.user).order_by('-created')
     return render(request,'dashboard/history.html',{"histories":histories})
+
+@login_required(login_url='login')
+def Logout(request):
+    logout(request)
+    return redirect('login')
