@@ -1527,14 +1527,6 @@ video {
   color: rgb(234 179 8 / var(--tw-text-opacity));
 }
 
-.text-\[\.\] {
-  color: .;
-}
-
-.text-\[\] {
-  color: ;
-}
-
 .underline {
   text-decoration-line: underline;
 }
@@ -1756,6 +1748,10 @@ html{
 @media not all and (min-width: 1060px) {
   .max-md\:col-span-1 {
     grid-column: span 1 / span 1;
+  }
+
+  .max-md\:hidden {
+    display: none;
   }
 
   .max-md\:h-3\/5 {
