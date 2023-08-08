@@ -1,16 +1,16 @@
 {%load static%}
 {%load compress%}
 
-<section class='bg-white py-4 text-black  lg:mb-0 relative'>
-<div class=' flex w-4/5 mx-auto justify-between items-center'>
-<div class='w-4/5 mx-auto flex items-center gap-3 cursor-pointer'>
- <div class='ctr w-4/5 mx-auto flex items-center gap-3 cursor-pointer'><i class="fa-solid fa-bars"></i><p class='text-xl max-md:hidden'>Menu</p></div>
-  <form action="{%url 'search' %}" method="get" class='relative'>
+<section class='bg-white py-4 px-4 text-black  lg:mb-0 relative'>
+<div class=' flex  mx-auto justify-between items-center'>
+<div class='  flex items-center  cursor-pointer'>
+ <div class='ctr  flex items-center gap-3 cursor-pointer'><i class="fa-solid fa-bars"></i><p class='text-xl'>Menu</p></div>
+  {% comment %} <form action="{%url 'search' %}" method="get" class='relative'>
   <input type="text" class='rounded-md w-full border-gray-100 border-2 placeholder:text-[.7rem] max-md:placeholder:text-[.6rem]  placeholder:text-gray-400' placeholder='Search Creators' name='search'>
   <button class='absolute p-2 right-2 top-1 text-grey-400'>
     <i class="fa-solid fa-magnifying-glass" style=" font-size:15px;"></i>
   </button>
-  </form>
+  </form> {% endcomment %}
 </div>
 <div class='flex items-center gap-2 cursor-pointer'>
 <button id="dropdownInformationButton" data-dropdown-toggle="dropdownInformation" class="">
