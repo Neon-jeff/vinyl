@@ -31,14 +31,14 @@ s0.parentNode.insertBefore(s1,s0);
 <!--End of Tawk.to Script-->
 </head>
 
-<body class="bg-gray-100   flex flex-col overflow-x-hidden" style="font-family: 'Montserrat', sans-serif">
+<body class="bg-gray-100 relative   flex flex-col overflow-x-hidden" style="font-family: 'Montserrat', sans-serif">
     {% include "components/nav.html" %}
     <div class=" text-[.8rem] flex flex-col items-center gap-10">
         {% block content %}
         {% endblock content %}
     </div>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.7.0/flowbite.min.js"></script>
 {% include "components/footer.html" %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.7.0/flowbite.min.js"></script>
 </body>
 
 </html>
