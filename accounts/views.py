@@ -175,3 +175,8 @@ def UserHistory(request):
 def Logout(request):
     logout(request)
     return redirect('login')
+
+def Market(request):
+    market=MarketPlace.objects.all()
+    nft=NFT.objects.filter(minted=True)
+    return render(request,'pages/marketplace.html',{"market":market,"nfts":nft})

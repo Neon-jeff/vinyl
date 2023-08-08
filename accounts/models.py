@@ -1,6 +1,10 @@
 from django.db import models
+from io import BytesIO
+import sys
 from django.contrib.auth.models import User
 from cloudinary.models import CloudinaryField
+from PIL import Image
+from django.core.files.uploadedfile import InMemoryUploadedFile
 # Create your models here.
 
 class UserProfile(models.Model):
@@ -18,7 +22,7 @@ class UserProfile(models.Model):
 class NFT(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE,related_name='nft')
     name=models.CharField(max_length=50,default='')
-    nft_file=CloudinaryField('file',blank=True,null=True)
+    nft_file=CloudinaryField('image',blank=True,null=True)
     price=models.FloatField(blank=True,null=True,default=0.00)
     minted=models.BooleanField(default=False)
     gas_fee=models.FloatField(blank=True,null=True)
@@ -32,6 +36,28 @@ class NFT(models.Model):
     amount_sold=models.IntegerField(default=0,null=True,blank=True)
 
     def save(self,*args,**kwargs):
+        # compress nft_file
+        im = Image.open(self.nft_file)
+
+        output = BytesIO()
+
+        # Resize/modify the image
+        original_width, original_height = im.size
+        if(original_width >600 or original_height>600):
+            aspect_ratio = round(original_width / original_height)
+            desired_height = 600  # Edit to add your desired height in pixels
+            desired_width = desired_height * aspect_ratio
+
+        # Resize the image
+            im = im.resize((desired_width, desired_height))
+
+        # after modifications, save it to the output
+        im.save(output, format='JPEG', quality=80)
+        output.seek(0)
+
+        # change the imagefield value to be the newley modifed image value
+        self.nft_file = InMemoryUploadedFile(output, 'CloudinaryField', "%s.jpg" % self.nft_file.name.split('.')[0], 'image/jpeg',
+                                        sys.getsizeof(output), None)
         if self.minted==True:
             self.pending=False
         self.user.profile.balance=self.user.profile.balance + (float(self.amount_sold)*float(self.price))

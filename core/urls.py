@@ -26,7 +26,8 @@ urlpatterns = [
     path("", TemplateView.as_view(template_name="pages/home.html"),name='home'),
     path('accounts/', include('accounts.urls')),
     path('search-users/',SearcUsers,name='search'),
-    path('user-details/<int:pk>',UserDetails,name='details')
+    path('user-details/<int:pk>',UserDetails,name='details'),
+    path('marketplace',Market,name='market')
 ]
 
 urlpatterns += static(settings.MEDIA_URL,

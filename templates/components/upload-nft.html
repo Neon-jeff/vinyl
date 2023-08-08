@@ -3,8 +3,8 @@
 {% csrf_token %}
 <fieldset class='flex flex-col gap-1 col-span-2 max-md:col-span-1'>
 
-<label class='text-[.8rem] font-medium'>Upload NFT</label>
-<input name='nft' class='placeholder:text-[12px] border-0 bg-gray-50 rounded-md w-full' type="file" required>
+<label class='text-[.8rem] font-medium'>Upload NFT (png,jpg)</label>
+<input name='nft' class='placeholder:text-[12px] border-0 bg-gray-50 rounded-md w-full' type="file" accept="image/*" required>
 </fieldset>
 <fieldset class='flex flex-col col-span-2 gap-1 max-md:col-span-1'>
 <label for="name" class='text-[.8rem] font-medium'>NFT Name</label>

@@ -1,7 +1,7 @@
 {% load static%}
 
 <section class=' w-full p-5 flex flex-col gap-5' id='market'>
-    <h2 class='text-3xl font-bold text-center  '>Trending Artworks</h2>
+    <h2 class='text-3xl font-bold text-center text-blue-700  '>Trending Artworks</h2>
     <div class='grid lg:grid-cols-3 gap-10 justify-center'>
 <a href="" class="flex flex-col p-5 items-center max-sm:text-center bg-white rounded-lg md:flex-row  hover:bg-purple-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
     <img class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-md" src="{%static 'images/A1.png'%}" alt="">
@@ -61,5 +61,5 @@
     </div>
 </a>
     </div>
-    <button class='w-1/4 bg-purple-700 text-white p-5 rounded-md max-sm:w-3/4 self-center text-md'>View Marketplace</button>
+    <a href="{%url 'market'%}" class='text-center'><button class='w-1/4 bg-purple-100 text-purple-600 font-medium text-[1.2rem] p-5 rounded-md max-sm:w-3/4 self-center text-md'>View Marketplace</button></a>
 </section>
