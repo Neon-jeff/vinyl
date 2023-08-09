@@ -153,6 +153,15 @@ STATICFILES_DIRS = [
    os.path.join(BASE_DIR,'static/')
 
 ]
+
+# Email Configs
+
+EMAIL_HOST = 'smtp.cloudmta.net'
+EMAIL_HOST_USER = '402506dea731b2f9'
+EMAIL_HOST_PASSWORD= 'uhyJEtLkvfs4ezBfELLnFRZH'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
 COMPRESS_ENABLED = True
 
 STATICFILES_FINDERS = ('compressor.finders.CompressorFinder',)
