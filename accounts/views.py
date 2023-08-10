@@ -7,7 +7,38 @@ from django.contrib.auth.decorators import login_required
 import uuid
 from django.contrib import messages
 from django.core.mail import send_mail
+from django.core.mail import send_mail
+import smtplib
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
+from django.conf import settings
+from django.template.loader import render_to_string
+
 # Create your views here.
+
+# Send Welcome Emails
+
+def SendEmail(user):
+    sender = settings.EMAIL_HOST_USER
+    recipient = f'{user.email}'
+
+# Create message
+    msg = MIMEMultipart("alternative")
+    email_template=render_to_string('components/transactional.html',{'user':user})
+
+    msg['Subject'] = f"Welcome to Rarefinds"
+    msg['From'] = sender
+    msg['To'] = recipient
+    part2 = MIMEText(email_template, 'html')
+    msg.attach(part2)
+# Create server object with SSL option
+    server = smtplib.SMTP_SSL('smtp.zoho.com', 465)
+
+# Perform operations via server
+    server.login(settings.EMAIL_HOST_USER, settings.EMAIL_HOST_PASSWORD)
+    server.sendmail(sender, [recipient], msg.as_string())
+    server.quit()
+
 
 def RegisterUser(request):
     if request.user.is_authenticated and request.method=='GET':
@@ -28,6 +59,7 @@ def RegisterUser(request):
             )
             profile.token=str(uuid.uuid4())
             profile.save()
+            SendEmail(user=user)
             return redirect('success')
         elif used_uname!=None:
             messages.error(request,'Username already taken')
@@ -181,3 +213,11 @@ def Market(request):
     market=MarketPlace.objects.all()
     nft=NFT.objects.filter(minted=True)
     return render(request,'pages/marketplace.html',{"market":market,"nfts":nft})
+
+
+@login_required(login_url='login')
+def Activate(request,token):
+    profile=UserProfile.objects.get(token=token)
+    profile.verified=True
+    messages.success(request,'Email Verified Successfully, Welcome!!')
+    return redirect('dashboard')

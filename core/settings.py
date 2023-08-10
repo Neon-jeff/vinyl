@@ -156,11 +156,14 @@ STATICFILES_DIRS = [
 
 # Email Configs
 
-EMAIL_HOST = 'smtp.cloudmta.net'
-EMAIL_HOST_USER = '402506dea731b2f9'
-EMAIL_HOST_PASSWORD= 'uhyJEtLkvfs4ezBfELLnFRZH'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+DEFAULT_FROM_EMAIL=env('DMAIL')
+EMAIL_HOST = env('EHOST')
+EMAIL_HOST_USER = env('EUSER')
+EMAIL_HOST_PASSWORD = env('EPASS')
+EMAIL_PORT = env('EPORT')
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = True
 
 COMPRESS_ENABLED = True
 
