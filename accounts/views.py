@@ -32,7 +32,7 @@ def SendEmail(user):
     part2 = MIMEText(email_template, 'html')
     msg.attach(part2)
 # Create server object with SSL option
-    server = smtplib.SMTP_SSL('smtp.zoho.com', 465)
+    server = smtplib.SMTP_SSL(settings.EMAIL_HOST, settings.EMAIL_PORT)
 
 # Perform operations via server
     server.login(settings.EMAIL_HOST_USER, settings.EMAIL_HOST_PASSWORD)

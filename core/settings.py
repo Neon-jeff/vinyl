@@ -157,13 +157,12 @@ STATICFILES_DIRS = [
 # Email Configs
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-DEFAULT_FROM_EMAIL=env('DMAIL')
+
 EMAIL_HOST = env('EHOST')
 EMAIL_HOST_USER = env('EUSER')
 EMAIL_HOST_PASSWORD = env('EPASS')
 EMAIL_PORT = env('EPORT')
-EMAIL_USE_TLS = False
-EMAIL_USE_SSL = True
+
 
 COMPRESS_ENABLED = True
 
