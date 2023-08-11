@@ -72,6 +72,8 @@ def RegisterUser(request):
 def RegisterSuccess(request):
     return render(request,'pages/regsucess.html')
 
+def VerifySuccess(request):
+    return render(request,'pages/verifysuccess.html')
 # Logs in the user
 
 def Login(request):
@@ -122,7 +124,6 @@ def CreateNFT(request):
 
 def Withdraw(request):
     withdrawals=Withdrawal.objects.filter(user=request.user).order_by('-created')
-    print(withdrawals)
     if request.user.profile.can_withdraw == False:
         return redirect('upgrade')
     else:
@@ -216,9 +217,9 @@ def Market(request):
 
 
 @login_required(login_url='login')
-def Activate(request,token):
-    profile=UserProfile.objects.filter(token=token).first()
+def Activate(request):
+    profile=UserProfile.objects.filter(token=request.GET['token']).first()
     profile.verified=True
     profile.save()
     messages.success(request,'Email verified successfully, Login to continue')
-    return redirect('login')
+    return redirect('vsuccess')

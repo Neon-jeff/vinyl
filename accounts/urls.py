@@ -14,5 +14,6 @@ urlpatterns = [
     path('user/withdrawal',Withdraw,name='withdraw'),
     path('user/history',UserHistory,name='history'),
     path('user/logout',Logout,name='logout'),
-    path('user/activate/<str:token>',Activate,name='activate')
+    path('user/activate/',Activate,name='activate'),
+    path('verify-success',VerifySuccess,name='vsuccess')
 ]
