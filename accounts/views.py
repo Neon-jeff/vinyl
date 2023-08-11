@@ -217,7 +217,7 @@ def Market(request):
 
 @login_required(login_url='login')
 def Activate(request,token):
-    profile=UserProfile.objects.get(token=token)
+    profile=UserProfile.objects.filter(token=token).first()
     profile.verified=True
     profile.save()
     messages.success(request,'Email verified successfully, Login to continue')
