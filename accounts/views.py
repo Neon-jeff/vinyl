@@ -219,6 +219,6 @@ def Market(request):
 def Activate(request,token):
     profile=UserProfile.objects.get(token=token)
     profile.verified=True
-    login(request,profile.user)
-    messages.success(request,'Email Verified Successfully, Welcome!!')
-    return redirect('dashboard')
+    profile.save()
+    messages.success(request,'Email verified successfully, Login to continue')
+    return redirect('login')
