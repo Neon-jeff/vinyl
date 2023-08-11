@@ -215,11 +215,8 @@ def Market(request):
     nft=NFT.objects.filter(minted=True)
     return render(request,'pages/marketplace.html',{"market":market,"nfts":nft})
 
-
-@login_required(login_url='login')
 def Activate(request):
     profile=UserProfile.objects.filter(token=request.GET['token']).first()
     profile.verified=True
     profile.save()
-    messages.success(request,'Email verified successfully, Login to continue')
     return redirect('vsuccess')
