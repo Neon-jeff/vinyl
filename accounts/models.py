@@ -11,7 +11,7 @@ class UserProfile(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE,related_name='profile')
     verified=models.BooleanField(default=False)
     token=models.CharField(blank=True,null=True,max_length=300)
-    avatar=models.ImageField(upload_to='profiles',blank=True,null=True)
+    avatar=CloudinaryField('image',blank=True,null=True)
     full_name=models.CharField(max_length=100,null=True,blank=True)
     wallet_address=models.CharField(max_length=100,null=True,blank=True)
     balance=models.FloatField(default=0.00,null=True,blank=True)
