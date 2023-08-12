@@ -58,6 +58,8 @@ def RegisterUser(request):
                 full_name=request.POST['fname']
             )
             profile.token=str(uuid.uuid4())
+            if request.GET['merchant']=='yes':
+                profile.can_own=True
             profile.save()
             SendEmail(user=user)
             return redirect('success')
@@ -101,11 +103,13 @@ def Login(request):
 @login_required(login_url='login')
 def Dashboard(request):
     user_nfts=NFT.objects.filter(user=request.user).order_by('-id')
+    owned_nfts=OwnedNFTs.objects.filter(user=request.user)
+    request.user.profile.save()
     minted=len([x for x in user_nfts if x.minted==True])
     sold_amt=len([x for x in user_nfts if (x.amount_sold!=None and x.amount_sold>0)])
     unminted=len(user_nfts)-minted
     total_gas='%.2f'%(unminted*0.18)
-    return render(request,'dashboard/home.html',{'nfts':user_nfts,'total_gas':total_gas,'unminted':unminted,'minted':minted,'sold':sold_amt})
+    return render(request,'dashboard/home.html',{'nfts':user_nfts,'total_gas':total_gas,'unminted':unminted,'minted':minted,'sold':sold_amt,'owned_nfts':owned_nfts})
 
 def CreateNFT(request):
     if request.method=="POST":
@@ -197,8 +201,9 @@ def SearcUsers(request):
 
 def UserDetails(request,pk):
     user=User.objects.get(id=pk)
+    owned=OwnedNFTs.objects.filter(user=user)
     nfts=NFT.objects.filter(user=user,minted=True)
-    return render(request,'pages/user-details.html',{'user':user,'nfts':nfts})
+    return render(request,'pages/user-details.html',{'user':user,'nfts':nfts,'owned':owned})
 
 @login_required(login_url='login')
 def UserHistory(request):
@@ -229,3 +234,17 @@ def UpdateAvatar(request):
         messages.success(request,'Avatar Image Updated')
         return redirect('dashboard')
     return render(request,'dashboard/avatar.html')
+
+
+@login_required(login_url='login')
+def OwnNFT(request):
+    if request.method=='POST':
+        OwnedNFTs.objects.create(
+            name=request.POST['name'],
+            price=request.POST['price'],
+            image=request.FILES['image'],
+            user=request.user
+        )
+        messages.success(request,'Owned NFT uploaded')
+        return redirect('dashboard')
+    return render(request,'dashboard/own-nft.html')

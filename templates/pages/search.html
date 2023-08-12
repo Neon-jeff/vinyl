@@ -8,13 +8,15 @@
 {% for user in users %}
     <div class='md:w-2/5 w-11/12 bg-white rounded md p-5 mx-auto flex justify-between items-center'>
     <div class='flex items-center gap-2'>
-        {% if user.profile.avatar != '' %}
+        {% if user.profile.avatar %}
         <img src={{user.profile.avatar.url}} alt="" class='h-[80px] w-[80px] object-cover rounded-full'>
         {% else %}
         <img src="{% static 'images/A4.jpg'%}" alt="" class='h-[80px] w-[80px] object-cover rounded-full'>
         {% endif %}
      <p class='flex flex-col font-medium'>@ {{user.username}} {% if user.profile.can_withdraw == True %}
      <span class='text-[.7rem] text-green-500'>Verified</span>
+     {%elif user.profile.can_own == True%}
+         <span class='text-[.7rem] text-green-500'>Merchant</span>
      {% else %}
      <span class='text-[.7rem] text-blue-500'>Pro</span>
      {% endif %}</p>

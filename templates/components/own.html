@@ -1,0 +1,28 @@
+<form action='' method='POST' enctype="multipart/form-data" class=' my-10 mx-auto bg-white  p-8 md:p-6 lg:w-2/5 w-11/12 grid md:grid-cols-2 grid-cols-1 gap-5 rounded-md'>
+<h1 class='md:text-4xl col-span-2 max-md:col-span-1 text-lg max-md:text-2xl text-center  font-bold pb-4 max-sm:pb-0 bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400 inline-block text-transparent  bg-clip-text'>OWN <span class=''>NFT</span></h1>
+{% csrf_token %}
+<fieldset class='flex flex-col gap-1 col-span-2 max-md:col-span-1'>
+
+<label class='text-[.8rem] font-medium'>Upload NFT (png,jpg)</label>
+<input name='image' class='placeholder:text-[12px] border-0 bg-gray-50 rounded-md w-full' type="file" accept="image/*" required>
+</fieldset>
+<fieldset class='flex flex-col col-span-2 gap-1 max-md:col-span-1'>
+<label for="name" class='text-[.8rem] font-medium'>NFT Name</label>
+<input name='name' type="text" placeholder="NFT name" class='placeholder:text-[12px] border-0 bg-gray-50 rounded-sm' required>
+</fieldset>
+
+<fieldset class='flex flex-col col-span-2 gap-1 max-md:col-span-1'>
+<label for="price" class='text-[.8rem] font-medium'>Price (ETH)</label>
+<input name='price' type="number" step='0.01' placeholder="0.00" class='placeholder:text-[12px] border-0 bg-gray-50 rounded-sm' required>
+</fieldset>
+
+
+
+
+
+
+
+<button type="submit" class='px-5  w-4/5 py-3 rounded-md bg-purple-500 text-white'>Create NFT</button>
+
+
+</form>

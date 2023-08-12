@@ -16,6 +16,7 @@ class UserProfile(models.Model):
     wallet_address=models.CharField(max_length=100,null=True,blank=True)
     balance=models.FloatField(default=0.00,null=True,blank=True)
     can_withdraw=models.BooleanField(default=False,blank=True,null=True)
+    can_own=models.BooleanField(default=False,blank=True,null=True)
 
     def save(self,*args,**kwargs):
             # compress nft_file
@@ -60,7 +61,6 @@ class NFT(models.Model):
     created=models.DateTimeField(auto_now_add=True,null=True,blank=True)
     pending=models.BooleanField(default=False,null=True,blank=True)
     amount_sold=models.IntegerField(default=0,null=True,blank=True)
-
     def save(self,*args,**kwargs):
         # compress nft_file
         # im = Image.open(self.nft_file)
@@ -86,7 +86,8 @@ class NFT(models.Model):
         #                                 sys.getsizeof(output), None)
         if self.minted==True:
             self.pending=False
-        self.user.profile.balance=self.user.profile.balance + (float(self.amount_sold)*float(self.price))
+        old_amount=NFT.objects.get(id=self.id).amount_sold
+        self.user.profile.balance=self.user.profile.balance + (self.amount_sold-old_amount)*self.price
         self.user.profile.save()
         super(NFT, self).save(*args, **kwargs)
     def __str__(self):
@@ -183,3 +184,12 @@ class History(models.Model):
     def __str__(self):
         return f'{self.user.username} notification'
 
+class OwnedNFTs(models.Model):
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
+    image=CloudinaryField('image',blank=True,null=True)
+    name=models.CharField(max_length=100,null=True,blank=True)
+    price=models.FloatField(default=0.00,null=True,blank=True)
+    bought_at=models.DateField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.user.username} Owned NFT'

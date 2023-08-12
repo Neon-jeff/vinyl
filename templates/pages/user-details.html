@@ -7,7 +7,7 @@
 <img class='h-full w-full object-cover ' src="{%static 'images/A9.jpg'%}" alt="">
 <div class='absolute top-1/2 lg:left-5 left-5 flex flex-col items-center'>
 <div class='h-[200px] max-sm:h-[100px] w-[200px] max-sm:w-[100px] bg-white rounded-full flex items-center justify-center'>
-    {% if user.profile.avatar != '' %}
+    {% if user.profile.avatar %}
     <img class='h-[180px] w-[180px] max-sm:h-[80px] max-sm:w-[80px] object-cover rounded-full' src={{user.profile.avatar.url}} alt="">
     {% else %}
     <img class='h-[180px] w-[180px] max-sm:h-[80px] max-sm:w-[80px] object-cover rounded-full' src="{% static 'images/A4.jpg'%}" alt="">
@@ -16,6 +16,8 @@
 <div class=' flex flex-col items-center text-md font-semibold rounded-md text-center'> @{{user.username}}
     {% if user.profile.can_withdraw %}
     <p class='py-1 px-3 text-green-400 font-normal text-[.7rem]'> <i class="fa-solid fa-circle-check" style="color: #2a933f;"></i> Verified</p>
+    {% elif user.profile.can_own %}
+    <p class='py-1 px-3 text-green-400 font-normal text-[.7rem]'> <i class="fa-solid fa-circle-check" style="color: #2a933f;"></i> Merchant</p>
     {% else %}
     <p class='py-1 px-3 text-blue-400 font-normal text-[.7rem]'> Pro</p>
     {% endif %}
@@ -43,6 +45,21 @@
     </div>
 </div>
             {% endfor %}
+        {%elif owned|length != 0 %}
+            {% for nft in owned %}
+    <div class="bg-white border rounded-md p-5">
+    <img class="rounded-lg w-full h-[200px] object-cover self-center" src="{{nft.image.url}}" alt="" />
+    <div class="p-5 grid grid-cols-2 gap-4">
+        <p class="font-medium">{{nft.name}}</p>
+        <p class='font-medium'>{{nft.price}} ETH</p>
+        <p class='font-medium p-2 bg-blue-50 text-center'>{{nft.bought_at}}</p>
+         <p class='font-medium p-2 bg-green-100 text-center'>2 Copies</p>
+
+
+
+    </div>
+</div>
+        {% endfor %}
         {% else %}
         <div class='w-3/5 self-start col-span-3 max-md:w-11/12 bg-white rounded-md flex items-center justify-center p-5'>
         No listed NFTs from @{{user.username}}
