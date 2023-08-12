@@ -32,7 +32,7 @@ class UserProfile(models.Model):
                 desired_width = desired_height * aspect_ratio
 
         # Resize the image
-            im = im.resize((desired_width, desired_height))
+                im = im.resize((desired_width, desired_height))
 
         # after modifications, save it to the output
             im.save(output, format='PNG', quality=80)
