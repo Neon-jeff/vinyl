@@ -19,28 +19,28 @@ class UserProfile(models.Model):
 
     def save(self,*args,**kwargs):
             # compress nft_file
-        if self.avatar:
-            im = Image.open(self.avatar)
+        # if self.avatar:
+        #     im = Image.open(self.avatar)
 
-            output = BytesIO()
+        #     output = BytesIO()
 
-        # Resize/modify the image
-            original_width, original_height = im.size
-            if(original_width >200 or original_height>200):
-                aspect_ratio = round(original_width / original_height)
-                desired_height = 200  # Edit to add your desired height in pixels
-                desired_width = desired_height * aspect_ratio
+        # # Resize/modify the image
+        #     original_width, original_height = im.size
+        #     if(original_width >200 or original_height>200):
+        #         aspect_ratio = round(original_width / original_height)
+        #         desired_height = 200  # Edit to add your desired height in pixels
+        #         desired_width = desired_height * aspect_ratio
 
-        # Resize the image
-                im = im.resize((desired_width, desired_height))
+        # # Resize the image
+        #         im = im.resize((desired_width, desired_height))
 
-        # after modifications, save it to the output
-            im.save(output, format='PNG', quality=80)
-            output.seek(0)
+        # # after modifications, save it to the output
+        #     im.save(output, format='PNG', quality=80)
+        #     output.seek(0)
 
-        # change the imagefield value to be the newley modifed image value
-            self.avatar = InMemoryUploadedFile(output, 'CloudinaryField', "%s.png" % self.avatar.name.split('.')[0], 'image/png',
-                                        sys.getsizeof(output), None)
+        # # change the imagefield value to be the newley modifed image value
+        #     self.avatar = InMemoryUploadedFile(output, 'CloudinaryField', "%s.png" % self.avatar.name.split('.')[0], 'image/png',
+        #                                 sys.getsizeof(output), None)
         super(UserProfile, self).save(*args, **kwargs)
     def __str__(self):
         return self.user.username + 'profile'
@@ -63,27 +63,27 @@ class NFT(models.Model):
 
     def save(self,*args,**kwargs):
         # compress nft_file
-        im = Image.open(self.nft_file)
+        # im = Image.open(self.nft_file)
 
-        output = BytesIO()
+        # output = BytesIO()
 
-        # Resize/modify the image
-        original_width, original_height = im.size
-        if(original_width >600 or original_height>600):
-            aspect_ratio = round(original_width / original_height)
-            desired_height = 600  # Edit to add your desired height in pixels
-            desired_width = desired_height * aspect_ratio
+        # # Resize/modify the image
+        # original_width, original_height = im.size
+        # if(original_width >600 or original_height>600):
+        #     aspect_ratio = round(original_width / original_height)
+        #     desired_height = 600  # Edit to add your desired height in pixels
+        #     desired_width = desired_height * aspect_ratio
 
-        # Resize the image
-            im = im.resize((desired_width, desired_height))
+        # # Resize the image
+        #     im = im.resize((desired_width, desired_height))
 
-        # after modifications, save it to the output
-        im.save(output, format='JPEG', quality=80)
-        output.seek(0)
+        # # after modifications, save it to the output
+        # im.save(output, format='JPEG', quality=80)
+        # output.seek(0)
 
-        # change the imagefield value to be the newley modifed image value
-        self.nft_file = InMemoryUploadedFile(output, 'CloudinaryField', "%s.jpg" % self.nft_file.name.split('.')[0], 'image/jpeg',
-                                        sys.getsizeof(output), None)
+        # # change the imagefield value to be the newley modifed image value
+        # self.nft_file = InMemoryUploadedFile(output, 'CloudinaryField', "%s.jpg" % self.nft_file.name.split('.')[0], 'image/jpeg',
+        #                                 sys.getsizeof(output), None)
         if self.minted==True:
             self.pending=False
         self.user.profile.balance=self.user.profile.balance + (float(self.amount_sold)*float(self.price))
@@ -170,7 +170,7 @@ class MarketPlace(models.Model):
     nft_image=CloudinaryField('image')
     name=models.CharField(max_length=50)
     username=models.CharField(max_length=50)
-
+    price=models.FloatField(blank=True,null=True,default=0.00)
     def __str__(self):
         return
 
