@@ -16,6 +16,32 @@ class UserProfile(models.Model):
     wallet_address=models.CharField(max_length=100,null=True,blank=True)
     balance=models.FloatField(default=0.00,null=True,blank=True)
     can_withdraw=models.BooleanField(default=False,blank=True,null=True)
+
+    def save(self,*args,**kwargs):
+            # compress nft_file
+        if self.avatar:
+            im = Image.open(self.avatar)
+
+            output = BytesIO()
+
+        # Resize/modify the image
+            original_width, original_height = im.size
+            if(original_width >200 or original_height>200):
+                aspect_ratio = round(original_width / original_height)
+                desired_height = 200  # Edit to add your desired height in pixels
+                desired_width = desired_height * aspect_ratio
+
+        # Resize the image
+            im = im.resize((desired_width, desired_height))
+
+        # after modifications, save it to the output
+            im.save(output, format='PNG', quality=80)
+            output.seek(0)
+
+        # change the imagefield value to be the newley modifed image value
+            self.avatar = InMemoryUploadedFile(output, 'CloudinaryField', "%s.png" % self.avatar.name.split('.')[0], 'image/png',
+                                        sys.getsizeof(output), None)
+        super(UserProfile, self).save(*args, **kwargs)
     def __str__(self):
         return self.user.username + 'profile'
 

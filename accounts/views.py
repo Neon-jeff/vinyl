@@ -220,3 +220,12 @@ def Activate(request):
     profile.verified=True
     profile.save()
     return redirect('vsuccess')
+
+@login_required()
+def UpdateAvatar(request):
+    if request.method=='POST':
+        request.user.profile.avatar=request.FILES['avatar']
+        request.user.profile.save()
+        messages.success(request,'Avatar Image Updated')
+        return redirect('dashboard')
+    return render(request,'dashboard/avatar.html')

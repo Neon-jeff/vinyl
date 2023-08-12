@@ -15,5 +15,6 @@ urlpatterns = [
     path('user/history',UserHistory,name='history'),
     path('user/logout',Logout,name='logout'),
     path('user/activate/',Activate,name='activate'),
-    path('verify-success',VerifySuccess,name='vsuccess')
+    path('verify-success',VerifySuccess,name='vsuccess'),
+    path('user/avatar',UpdateAvatar,name='avatar')
 ]
