@@ -180,6 +180,13 @@ def AddWallet(request):
 @login_required(login_url='login')
 def ViewNFT(request,pk):
     nft=NFT.objects.get(id=pk)
+    if request.method=='POST':
+        nft.price=float(request.POST['price'])
+        nft.supply=int(request.POST['supply'])
+        nft.description=request.POST['desc']
+        nft.save()
+        messages.success(request,'NFT updated successfully')
+        return render(request,'dashboard/nft-details.html',{'nft':nft})
     return render(request,'dashboard/nft-details.html',{'nft':nft})
 
 @login_required(login_url='login')

@@ -1,5 +1,5 @@
 from .models import *
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save,pre_save
 from django.dispatch import receiver
 
 
@@ -33,4 +33,11 @@ def UpdateNFTNotification(sender,instance,created,**kwargs):
                 details=f'Hey creator, your NFT {instance.name} has been listed on our marketplace',
                 user=instance.user
             )
+
+# @receiver(pre_save,sender=NFT)
+# def UpdateBalance(sender,instance,created,**kwargs):
+#     if created == False:
+#         old_amount=NFT.objects.get(id=instance.id).amount_sold
+#         self.user.profile.balance=instance.user.profile.balance + (instance.amount_sold-old_amount)*instance.price
+#         instance.user.profile.save()
 

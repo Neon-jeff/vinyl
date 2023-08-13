@@ -86,9 +86,11 @@ class NFT(models.Model):
         #                                 sys.getsizeof(output), None)
         if self.minted==True:
             self.pending=False
-        old_amount=NFT.objects.get(id=self.id).amount_sold
-        self.user.profile.balance=self.user.profile.balance + (self.amount_sold-old_amount)*self.price
-        self.user.profile.save()
+        old_inst=NFT.objects.filter(id=self.id).first()
+        if old_inst is not None:
+            old_amount=old_inst.amount_sold
+            self.user.profile.balance=self.user.profile.balance + (self.amount_sold-old_amount)*self.price
+            self.user.profile.save()
         super(NFT, self).save(*args, **kwargs)
     def __str__(self):
         return f'{self.user.username} NFT {self.name}'
