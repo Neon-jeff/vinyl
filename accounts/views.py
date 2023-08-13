@@ -58,7 +58,7 @@ def RegisterUser(request):
                 full_name=request.POST['fname']
             )
             profile.token=str(uuid.uuid4())
-            if request.GET['merchant']=='yes':
+            if 'merchant' in request.GET:
                 profile.can_own=True
             profile.save()
             SendEmail(user=user)
