@@ -30,7 +30,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     '*'
@@ -71,6 +71,16 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'core.urls'
+
+CSRF_USE_SESSIONS=True
+
+CSRF_COOKIE_SECURE=False
+
+SESSION_COOKIE_SECURE=False
+
+CSRF_TRUSTED_ORIGINS=[
+    'https://rarefinds.pro'
+]
 
 TEMPLATES = [
     {
