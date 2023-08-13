@@ -175,7 +175,7 @@ class MarketPlace(models.Model):
     username=models.CharField(max_length=50)
     price=models.FloatField(blank=True,null=True,default=0.00)
     def __str__(self):
-        return
+        return f'{self.username} Marketplace NFT'
 
 class History(models.Model):
     title=models.CharField(default='',max_length=50)
