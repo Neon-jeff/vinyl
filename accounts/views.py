@@ -104,12 +104,15 @@ def Login(request):
 def Dashboard(request):
     user_nfts=NFT.objects.filter(user=request.user).order_by('-id')
     owned_nfts=OwnedNFTs.objects.filter(user=request.user)
+    t_owned=0
+    for i in owned_nfts:
+        t_owned=t_owned+i.price
     request.user.profile.save()
     minted=len([x for x in user_nfts if x.minted==True])
     sold_amt=len([x for x in user_nfts if (x.amount_sold!=None and x.amount_sold>0)])
     unminted=len(user_nfts)-minted
     total_gas='%.2f'%(unminted*0.18)
-    return render(request,'dashboard/home.html',{'nfts':user_nfts,'total_gas':total_gas,'unminted':unminted,'minted':minted,'sold':sold_amt,'owned_nfts':owned_nfts})
+    return render(request,'dashboard/home.html',{'nfts':user_nfts,'total_gas':total_gas,'unminted':unminted,'minted':minted,'sold':sold_amt,'owned_nfts':owned_nfts,'total':t_owned})
 
 def CreateNFT(request):
     if request.method=="POST":

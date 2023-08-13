@@ -65,20 +65,41 @@
 </div>
  <p class='text-lg font-medium mt-16 max-sm:mt-0'>Summary</p>
 <div class=' bg-white rounded-md max-md:w-full w-1/4 p-5 flex flex-col items-center gap-3 '>
+    {% if user.profile.can_own %}
+    <p class='text-center text-green-500 bg-green-100 p-2 rounded-md text-lg font-medium'>SPENT : {{total}} ETH</p>
+    {% else %}
     <p class='text-center text-green-500 bg-green-100 p-2 rounded-md text-lg font-medium'>{{request.user.profile.balance}} ETH</p>
+    {% endif %}
+    {% if user.profile.can_own %}
+    <p class='text-[.7rem] text-blue-600 font-medium'>You have bought {{owned_nfts|length}} NFTs</p>
+    {% else %}
     <p class='text-[.7rem] text-blue-600 font-medium'>You have {{unminted}} unminted NFTs</p>
+    {% endif %}
     <div class='grid grid-cols-2  gap-x-16 gap-y-1 justify-between '>
     <div>
+    {% if user.profile.can_own %}
+    <p class='font-medium text-blue-500'>NFTs</p> <p>{{owned_nfts | length}}</p>
+
+    {% else %}
     <p class='font-medium text-blue-500'>NFTs</p> <p>{{nfts | length}}</p>
+    {% endif %}
     </div>
         <div>
     <p class='font-medium text-green-400'>Collections</p> <p>0</p>
     </div>
         <div>
+    {% if user.profile.can_own %}
+
+    {% else %}
     <p class='font-medium text-orange-500'>Sold</p> <p>{{sold}}</p>
+    {% endif %}
     </div>
         <div>
-    <p class='font-medium text-purple-500'>Minted</p> <p>{{minted}}</p>
+        {% if user.profile.can_own %}
+
+        {% else %}
+            <p class='font-medium text-purple-500'>Minted</p> <p>{{minted}}</p>
+        {% endif %}
     </div>
     </div>
 </div>
