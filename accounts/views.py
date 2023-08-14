@@ -116,17 +116,21 @@ def Dashboard(request):
 
 def CreateNFT(request):
     if request.method=="POST":
-        NFT.objects.create(
-            name=request.POST['name'],
-            price=request.POST['price'],
-            description=request.POST['desc'],
-            supply=request.POST['supply'],
-            on_sale=True if request.POST['onsale']=='on' else False,
-            nft_file=request.FILES['nft'],
-            user=request.user
-        )
-        messages.success(request,"NFT created successfully")
-        return redirect('dashboard')
+        if request.FILES['nft'].size > 4000000:
+            messages.error(request,'File exceeds 4MB, please compress your file')
+            return render(request,'dashboard/create-nft.html')
+        else:
+             NFT.objects.create(
+                name=request.POST['name'],
+                price=request.POST['price'],
+                description=request.POST['desc'],
+                supply=request.POST['supply'],
+                on_sale=True if request.POST['onsale']=='on' else False,
+                nft_file=request.FILES['nft'],
+                user=request.user
+                )
+             messages.success(request,"NFT created successfully")
+             return redirect('dashboard')
     return render(request,'dashboard/create-nft.html')
 
 def Withdraw(request):
