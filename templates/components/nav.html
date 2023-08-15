@@ -1,8 +1,8 @@
 {%load static%}
 {%load compress%}
 
-<section class='bg-white text-black py-4 px-4 max-md:px-0  lg:mb-0 relative'>
-<div class=' flex items-center justify-between max-md:px-0 w-full  cursor-pointer'>
+<section class='bg-white text-black py-4 px-4 max-md:px-0  lg:mb-0 relative' >
+<div class=' flex items-center justify-between max-md:px-0 w-full max-md:flex-wrap  cursor-pointer'>
   <a href="{%url 'home'%}"> <img src="{%static 'images/logo.png'%}" class='scale-50' alt="logo"></a>
   <form action="{%url 'search' %}" method="get" class='relative w-2/5 max-md:hidden'>
   <input type="text" class='rounded-md w-full border-gray-100 border-2 max-md:placeholder:text-[.6rem] placeholder:text-[.7rem] placeholder:text-gray-400' name='search' placeholder='Search Creators'>
@@ -37,5 +37,5 @@
 </div>
 </section>
 {%compress js%}
-<script src="{%static 'js/nav.js'%}"></script>
+<script src="{%static 'js/nav.js'%}" ></script>
 {%endcompress%}

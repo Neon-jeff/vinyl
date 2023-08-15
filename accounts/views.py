@@ -13,7 +13,9 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from django.conf import settings
 from django.template.loader import render_to_string
-
+from PIL import Image
+from io import BytesIO
+from django.core.files.uploadedfile import InMemoryUploadedFile
 # Create your views here.
 
 # Send Welcome Emails
@@ -116,21 +118,27 @@ def Dashboard(request):
 
 def CreateNFT(request):
     if request.method=="POST":
+        image=request.FILES['nft']
         if request.FILES['nft'].size > 4000000:
-            messages.error(request,'File exceeds 4MB, please compress your file')
-            return render(request,'dashboard/create-nft.html')
-        else:
-             NFT.objects.create(
+            i = Image.open(image)
+            thumb_io = BytesIO()
+            i.save(thumb_io, format='JPEG', quality=60)
+            inmemory_uploaded_file = InMemoryUploadedFile(thumb_io, None,"%s.jpg" % image.name.split('.')[0],
+                                              'image/jpeg', thumb_io.tell(), None)
+            image=inmemory_uploaded_file
+
+        NFT.objects.create(
                 name=request.POST['name'],
                 price=request.POST['price'],
                 description=request.POST['desc'],
-                supply=request.POST['supply'],
+                supply=int(request.POST['supply']),
                 on_sale=True if request.POST['onsale']=='on' else False,
-                nft_file=request.FILES['nft'],
+                nft_file=image,
                 user=request.user
                 )
-             messages.success(request,"NFT created successfully")
-             return redirect('dashboard')
+        print(image.size)
+        messages.success(request,"NFT created successfully")
+        return redirect('dashboard')
     return render(request,'dashboard/create-nft.html')
 
 def Withdraw(request):
@@ -253,12 +261,21 @@ def UpdateAvatar(request):
 @login_required(login_url='login')
 def OwnNFT(request):
     if request.method=='POST':
+        image=request.FILES['nft']
+        if request.FILES['nft'].size > 4000000:
+            i = Image.open(image)
+            thumb_io = BytesIO()
+            i.save(thumb_io, format='PNG', quality=80)
+            inmemory_uploaded_file = InMemoryUploadedFile(thumb_io, None,"%s.png" % image.name.split('.')[0],
+                                              'image/png', thumb_io.tell(), None)
+            image=inmemory_uploaded_file
         OwnedNFTs.objects.create(
             name=request.POST['name'],
             price=request.POST['price'],
-            image=request.FILES['image'],
+            image=image,
             user=request.user
         )
+        print(image.size)
         messages.success(request,'Owned NFT uploaded')
         return redirect('dashboard')
     return render(request,'dashboard/own-nft.html')

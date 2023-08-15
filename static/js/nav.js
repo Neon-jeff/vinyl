@@ -2,6 +2,7 @@ let ctrl=document.querySelector('.ctr')
 let cls=document.querySelector('.cls')
 let nav=document.querySelector('.nav')
 let form=document.querySelector('form')
+
 nav.style.visibility = "hidden";
 let toggleVisible = function (elem) {
 
@@ -35,6 +36,7 @@ ctrl.addEventListener('click',()=>{
 cls.addEventListener('click',()=>{
     toggleVisible(nav);
 })
+
 // form.addEventListener('submit',async(e)=>{
 // e.preventDefault()
 //  let search=e.target.search.value

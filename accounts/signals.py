@@ -21,7 +21,7 @@ def UpdateNFTNotification(sender,instance,created,**kwargs):
                 details=f"Hey creator, your {instance.name} NFT has sold {instance.amount_sold} items",
                 user=instance.user
             )
-        if instance.amount_sold == instance.supply:
+        if instance.amount_sold == int(instance.supply):
             History.objects.create(
                 title="NFT Item Sold Out",
                 details=f'Hey creator your {instance.name} NFT has been completely sold out',
