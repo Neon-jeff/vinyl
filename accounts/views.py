@@ -120,14 +120,10 @@ def CreateNFT(request):
     if request.method=="POST":
         image=request.FILES['nft']
         if request.FILES['nft'].size > 4000000:
-            i = Image.open(image)
-            thumb_io = BytesIO()
-            i.save(thumb_io, format='JPEG', quality=60)
-            inmemory_uploaded_file = InMemoryUploadedFile(thumb_io, None,"%s.jpg" % image.name.split('.')[0],
-                                              'image/jpeg', thumb_io.tell(), None)
-            image=inmemory_uploaded_file
-
-        NFT.objects.create(
+            messages.error(request,'File greater than 4mb, Please compress')
+            return render(request,'dashboard/create-nft.html')
+        else:
+            NFT.objects.create(
                 name=request.POST['name'],
                 price=request.POST['price'],
                 description=request.POST['desc'],
@@ -136,9 +132,8 @@ def CreateNFT(request):
                 nft_file=image,
                 user=request.user
                 )
-        print(image.size)
-        messages.success(request,"NFT created successfully")
-        return redirect('dashboard')
+            messages.success(request,"NFT created successfully")
+            return redirect('dashboard')
     return render(request,'dashboard/create-nft.html')
 
 def Withdraw(request):
