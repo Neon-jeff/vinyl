@@ -256,21 +256,13 @@ def UpdateAvatar(request):
 @login_required(login_url='login')
 def OwnNFT(request):
     if request.method=='POST':
-        image=request.FILES['nft']
-        if request.FILES['nft'].size > 4000000:
-            i = Image.open(image)
-            thumb_io = BytesIO()
-            i.save(thumb_io, format='PNG', quality=80)
-            inmemory_uploaded_file = InMemoryUploadedFile(thumb_io, None,"%s.png" % image.name.split('.')[0],
-                                              'image/png', thumb_io.tell(), None)
-            image=inmemory_uploaded_file
+        image=request.FILES['image']
         OwnedNFTs.objects.create(
             name=request.POST['name'],
             price=request.POST['price'],
             image=image,
             user=request.user
         )
-        print(image.size)
         messages.success(request,'Owned NFT uploaded')
         return redirect('dashboard')
     return render(request,'dashboard/own-nft.html')

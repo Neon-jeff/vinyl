@@ -31,7 +31,7 @@
 <fieldset class='flex flex-col gap-1 col-span-2 max-md:col-span-1'>
 
 <label class='text-[.8rem] font-medium'>Upload NFT (png,jpg)</label>
-<input name='nft' class='placeholder:text-[12px] border-0 bg-gray-50 rounded-md w-full' type="file" accept="image/*" required>
+<input name='nft' class='placeholder:text-[12px] border-0 bg-gray-50 rounded-md w-full' id='file' type="file" accept="image/*" required>
 </fieldset>
 <fieldset class='flex flex-col col-span-2 gap-1 max-md:col-span-1'>
 <label for="name" class='text-[.8rem] font-medium'>NFT Name</label>
@@ -65,4 +65,28 @@ List For Sale
 <button type="submit" class='px-5  w-4/5 py-3 rounded-md bg-purple-500 text-white'>Create NFT</button>
 
 
+    <script>
+        Filevalidation = () => {
+            const fi = document.getElementById('file');
+            // Check if any file is selected.
+            if (fi.files.length > 0) {
+                for (const i = 0; i <= fi.files.length - 1; i++) {
+
+                    const fsize = fi.files.item(i).size;
+                    const file = Math.round((fsize / 1024));
+                    // The size of the file.
+                    if (file >= 4096) {
+                        alert(
+                          "File too Big, please select a file less than 4mb");
+                    } else if (file < 2048) {
+                        alert(
+                          "File too small, please select a file greater than 2mb");
+                    } else {
+                        document.getElementById('size').innerHTML = '<b>'
+                        + file + '</b> KB';
+                    }
+                }
+            }
+        }
+    </script>
 </form>
