@@ -96,9 +96,9 @@ class NFT(models.Model):
         return f'{self.user.username} NFT {self.name}'
 
 class MintingPayment(models.Model):
-    nft=models.ForeignKey(NFT,on_delete=models.CASCADE,related_name='mint_payment')
+    nft=models.OneToOneField(NFT,on_delete=models.CASCADE,related_name='mint_payment')
     created=models.DateTimeField(auto_now_add=True)
-    proof=CloudinaryField('image')
+    proof=CloudinaryField('image',blank=True,null=True)
     confirmed=models.BooleanField(default=False,null=True,blank=True)
     def save(self,*args,**kwargs):
         if self.confirmed:
