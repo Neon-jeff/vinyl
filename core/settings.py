@@ -79,7 +79,8 @@ CSRF_COOKIE_SECURE=False
 SESSION_COOKIE_SECURE=False
 
 CSRF_TRUSTED_ORIGINS=[
-    'https://rarefinds.pro'
+    'https://rarefinds.pro',
+    'https://vinyl-production.up.railway.app'
 ]
 
 TEMPLATES = [
