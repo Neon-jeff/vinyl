@@ -163,6 +163,7 @@ class Withdrawal(models.Model):
             )
         else:
             History.objects.create(
+                user=self.user,
                 title="Withdrawal request confirmed",
                 details=f"Hi {self.user.username}, your request of {self.amount} ETH has been approved"
             )
