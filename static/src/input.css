@@ -15,7 +15,7 @@ html{
 .hide{
     visibility: hidden;
 }
-.skiptranslate{
+/* .skiptranslate{
     order: 1;
 }
 .skiptranslate>span{
@@ -27,4 +27,4 @@ html{
 .skiptranslate select{
     border: 0;
     background-color: lightgrey;
-}
+} */

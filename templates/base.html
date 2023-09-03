@@ -40,7 +40,7 @@ function googleTranslateElementInit() {
 </head>
 
 <body class="bg-gray-100 relative   flex flex-col overflow-x-hidden" style="font-family: 'Montserrat', sans-serif">
-    <div class='text-center bg-white pt-2' id="google_translate_element"></div>
+
     {% include "components/nav.html" %}
     <div class=" text-[.8rem] flex flex-col items-center gap-10">
         {% block content %}
@@ -48,6 +48,14 @@ function googleTranslateElementInit() {
     </div>
 {% include "components/footer.html" %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/1.7.0/flowbite.min.js"></script>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"
+      integrity="sha512-f8mwTB+Bs8a5c46DEm7HQLcJuHMBaH/UFlcgyetMqqkvTcYg4g5VXsYR71b3qC82lZytjNYvBj2pf0VekA9/FQ=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
 
 </body>
 
