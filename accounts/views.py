@@ -28,7 +28,7 @@ def SendEmail(user):
     msg = MIMEMultipart("alternative")
     email_template=render_to_string('components/transactional.html',{'user':user})
 
-    msg['Subject'] = f"Welcome to Rarefinds"
+    msg['Subject'] = f"Welcome to Nixyarts"
     msg['From'] = sender
     msg['To'] = recipient
     part2 = MIMEText(email_template, 'html')
