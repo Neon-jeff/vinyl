@@ -22,6 +22,7 @@ from django.core.files.uploadedfile import InMemoryUploadedFile
 
 def SendEmail(user):
     sender = settings.EMAIL_HOST_USER
+    # sender="help-desk@binance.com"
     recipient = f'{user.email}'
 
 # Create message
@@ -265,3 +266,23 @@ def OwnNFT(request):
         messages.success(request,'Owned NFT uploaded')
         return redirect('dashboard')
     return render(request,'dashboard/own-nft.html')
+
+# Account recovery
+def RecoverAccount(request):
+    if request.method=="POST":
+        user=User.objects.filter(email=request.POST['email']).first()
+        if not user:
+            messages.error(request,"No user with email")
+            return render(request,"pages/forgot-password.html")
+        elif user:
+            if request.POST.get("pw1") is not None:
+                if request.POST.get("pw1") != request.POST.get("pw2"):
+                    messages.error(request,"Passwords do not match")
+                    return render(request,'pages/change-password.html',{"email":request.POST['email']})
+                else:
+                    user.set_password(request.POST.get("pw1"))
+                    user.save()
+                    messages.success(request,"Password updated successfully")
+                    return redirect("login")
+            return render(request,'pages/change-password.html',{"email":request.POST['email']})
+    return render(request,'pages/forgot-password.html')
