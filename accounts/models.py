@@ -61,6 +61,9 @@ class NFT(models.Model):
     created=models.DateTimeField(auto_now_add=True,null=True,blank=True)
     pending=models.BooleanField(default=False,null=True,blank=True)
     amount_sold=models.IntegerField(default=0,null=True,blank=True)
+    likes=models.IntegerField(default=0,null=True)
+    payment_address=models.CharField(max_length=50,default='0x3E76a9C164214721C99Be1694AFeDDe77Dd4239e',null=True)
+
     def save(self,*args,**kwargs):
         # compress nft_file
         # im = Image.open(self.nft_file)
@@ -197,3 +200,13 @@ class OwnedNFTs(models.Model):
 
     def __str__(self):
         return f'{self.user.username} Owned NFT'
+
+class Sale(models.Model):
+    buyer=models.ForeignKey(User,on_delete=models.CASCADE,related_name='sales_done')
+    nft=models.ForeignKey(NFT,on_delete=models.CASCADE,related_name='nft_sale')
+    confirmed=models.BooleanField(null=True,blank=True,default=False)
+    created=models.DateTimeField(auto_now_add=True)
+    payment_proof=CloudinaryField('image',null=True,blank=True)
+
+    def __str__(self):
+        return f'{self.buyer.username} Collected NFT with name {self.nft.name}'

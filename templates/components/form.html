@@ -5,7 +5,7 @@
 <img src="{%static 'images/A9.jpg'%}" alt="" class='h-full w-full object-cover'>
 <div class='bg-[rgb(0,0,0,.8)] absolute top-0 bottom-0 z-10 w-full h-screen items-center    '>
 
-<main class='text-white w-full lg:pt-32 pt-5'>
+<main class='text-white w-full lg:pt-32 mt-32 pt-5'>
 <div class='w-2/5 max-sm:w-11/12 text-[.7rem] mx-auto mt-5 ml-10'>
     {% if messages %}
     {% for message in messages  %}
@@ -35,7 +35,7 @@
 </div>
 <h1 class='md:text-4xl text-lg text-center  font-medium pb-4'>Create account to  <span class='text-purple-500'>explore</span></h1>
 </main>
-<form action='' method='POST' class=' mx-auto bg-white  p-8 md:p-6 lg:w-2/5 w-4/5 grid lg:grid-cols-2 max-md:grid-cols-1 gap-3 rounded-md'>
+<form action='' method='POST' class=' mx-auto bg-black bg-clip-padding backdrop-filter backdrop-blur-sm bg-opacity-50 text-white  p-8 md:p-6 lg:w-2/5 w-4/5 grid lg:grid-cols-2 max-md:grid-cols-1 gap-3 rounded-md'>
 {% csrf_token %}
 <fieldset class='flex flex-col gap-1'>
 <label for="uname">Username</label>

@@ -85,7 +85,7 @@
     {% endif %}
     </div>
         <div>
-    <p class='font-medium text-green-400'>Collections</p> <p>0</p>
+    <p class='font-medium text-green-400'>Collected</p> <p>{{request.user.sales_done.all | length}}</p>
     </div>
         <div>
     {% if user.profile.can_own %}
@@ -106,13 +106,14 @@
 {% comment %} Cards for NFTs and Collections {% endcomment %}
 <div class='flex flex-col gap-3 pt-3'>
 <div class='flex gap-4 max-sm:justify-center'>
-    <button class='bg-gray-400 text-black px-8 py-3 rounded-md'>My NFTs</button>
+    <button class='bg-gray-400 text-black px-8 py-3 rounded-md n-btn'>My NFTs</button>
+    <button class='bg-gray-200 text-black px-8 py-3 rounded-md c-btn'>Collected</button>
 {% comment %} <button class='bg-gray-200 text-black px-8 py-3 rounded-md'>My Collections</button> {% endcomment %}
 </div>
 
 {% comment %} NFT LIST {% endcomment %}
 
-<div class='grid grid-cols-1 lg:grid-cols-3 gap-5'>
+<div class='grid grid-cols-1 lg:grid-cols-3 gap-5 nft'>
 
         {% if nfts|length != 0 %}
             {% for nft in nfts %}
@@ -153,6 +154,38 @@
         {% endif %}
 </div>
 
+{% comment %} Collected List {% endcomment %}
+
+<div class='hidden grid-cols-1 lg:grid-cols-3 gap-5 collected'>
+
+        {% if collected|length != 0 %}
+            {% for nft in collected %}
+    <div class="bg-white border rounded-md p-5">
+    <img class="rounded-lg w-full h-[200px] object-cover self-center" src="{{nft.nft.nft_file.url}}" alt="" />
+    <div class="p-5 grid grid-cols-2 gap-4">
+        <p class="font-medium">{{nft.nft.name}}</p>
+        <p class='font-medium'>{{nft.nft.price}} ETH</p>
+              {% if nft.nft.confirmed %}
+            <p class='text-green-400 font-medium py-2 rounded-md'>Confrimed</p>
+                {% else %}
+            <p class='font-medium px-2 text-center py-2 rounded-md text-blue-500 bg-blue-100'>Pending</p>
+
+
+            {% endif %}
+
+
+    </div>
 </div>
+            {% endfor %}
+          {% else %}
+    {% for nft in owned_nfts %}
+
+        {% endfor %}
+
+        {% endif %}
+</div>
+
+</div>
+<script src="{%static 'js/dashboard.js'%}"></script>
 </section>
 {% endblock content %}

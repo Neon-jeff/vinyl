@@ -107,6 +107,7 @@ def Login(request):
 def Dashboard(request):
     user_nfts=NFT.objects.filter(user=request.user).order_by('-id')
     owned_nfts=OwnedNFTs.objects.filter(user=request.user)
+    collected=request.user.sales_done.all()
     t_owned=0
     for i in owned_nfts:
         t_owned=t_owned+i.price
@@ -115,7 +116,7 @@ def Dashboard(request):
     sold_amt=len([x for x in user_nfts if (x.amount_sold!=None and x.amount_sold>0)])
     unminted=len(user_nfts)-minted
     total_gas='%.2f'%(unminted*0.18)
-    return render(request,'dashboard/home.html',{'nfts':user_nfts,'total_gas':total_gas,'unminted':unminted,'minted':minted,'sold':sold_amt,'owned_nfts':owned_nfts,'total':t_owned})
+    return render(request,'dashboard/home.html',{'nfts':user_nfts,'total_gas':total_gas,'unminted':unminted,'minted':minted,'sold':sold_amt,'owned_nfts':owned_nfts,'total':t_owned,'collected':collected})
 
 def CreateNFT(request):
     if request.method=="POST":
@@ -286,3 +287,17 @@ def RecoverAccount(request):
                     return redirect("login")
             return render(request,'pages/change-password.html',{"email":request.POST['email']})
     return render(request,'pages/forgot-password.html')
+
+@login_required(login_url='login')
+def BuyNFT(request,pk):
+    nft=NFT.objects.get(id=pk)
+    if request.method=="POST":
+        Sale.objects.create(
+            buyer=request.user,
+            nft=nft,
+            confirmed=False,
+            payment_proof=request.FILES['proof']
+        )
+        messages.success(request,"collection created, wait for approval")
+    return render(request,'pages/buy-nft.html',{"nft":nft})
+

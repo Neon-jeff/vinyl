@@ -19,4 +19,5 @@ urlpatterns = [
     path('user/avatar',UpdateAvatar,name='avatar'),
     path('user/own-nft',OwnNFT,name='own'),
     path("recover-account",RecoverAccount,name='recover'),
+    path("collect-nft/<int:pk>",BuyNFT,name='buy-nft')
 ]
