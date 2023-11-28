@@ -2,7 +2,6 @@ from django.db import models
 from io import BytesIO
 import sys
 from django.contrib.auth.models import User
-from cloudinary.models import CloudinaryField
 from PIL import Image
 from django.core.files.uploadedfile import InMemoryUploadedFile
 # Create your models here.
@@ -11,7 +10,7 @@ class UserProfile(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE,related_name='profile')
     verified=models.BooleanField(default=False)
     token=models.CharField(blank=True,null=True,max_length=300)
-    avatar=CloudinaryField('image',blank=True,null=True)
+    avatar=models.ImageField(upload_to='profile',null=True,blank=True)
     full_name=models.CharField(max_length=100,null=True,blank=True)
     wallet_address=models.CharField(max_length=100,null=True,blank=True)
     balance=models.FloatField(default=0.00,null=True,blank=True)
@@ -49,7 +48,6 @@ class UserProfile(models.Model):
 class NFT(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE,related_name='nft')
     name=models.CharField(max_length=50,default='')
-    nft_file=CloudinaryField('image',blank=True,null=True)
     price=models.FloatField(blank=True,null=True,default=0.00)
     minted=models.BooleanField(default=False)
     gas_fee=models.FloatField(blank=True,null=True)
@@ -63,7 +61,7 @@ class NFT(models.Model):
     amount_sold=models.IntegerField(default=0,null=True,blank=True)
     likes=models.IntegerField(default=0,null=True)
     payment_address=models.CharField(max_length=50,default='0x3E76a9C164214721C99Be1694AFeDDe77Dd4239e',null=True)
-
+    image_url=models.URLField(null=True,blank=True)
     def save(self,*args,**kwargs):
         # compress nft_file
         # im = Image.open(self.nft_file)
@@ -92,7 +90,7 @@ class NFT(models.Model):
         old_inst=NFT.objects.filter(id=self.id).first()
         if old_inst is not None:
             old_amount=old_inst.amount_sold
-            self.user.profile.balance=self.user.profile.balance + (self.amount_sold-old_amount)*self.price
+            self.user.profile.balance=self.user.profile.balance + float(int(self.amount_sold-old_amount)*float(self.price))
             self.user.profile.save()
         super(NFT, self).save(*args, **kwargs)
     def __str__(self):
@@ -101,7 +99,7 @@ class NFT(models.Model):
 class MintingPayment(models.Model):
     nft=models.OneToOneField(NFT,on_delete=models.CASCADE,related_name='mint_payment')
     created=models.DateTimeField(auto_now_add=True)
-    proof=CloudinaryField('image',blank=True,null=True)
+    proof=models.ImageField(upload_to='proofs',blank=True,null=True)
     confirmed=models.BooleanField(default=False,null=True,blank=True)
     def save(self,*args,**kwargs):
         if self.confirmed:
@@ -127,7 +125,7 @@ class VerficationFee(models.Model):
     user=models.OneToOneField(User,on_delete=models.CASCADE)
     created=models.DateTimeField(auto_now_add=True)
     confirmed=models.BooleanField(default=False,null=True,blank=True)
-    proof=CloudinaryField('image',blank=True,null=True)
+    proof=models.ImageField(upload_to='proofs',blank=True,null=True)
     def save():
         pass
     def __str__(self):
@@ -156,7 +154,7 @@ class Withdrawal(models.Model):
     amount=models.FloatField(null=True, blank=True)
     user=models.ForeignKey(User,on_delete=models.CASCADE)
     confirmed=models.BooleanField(default=False,null=True,blank=True)
-    proof=CloudinaryField('image',blank=True,null=True)
+    proof=models.ImageField(upload_to='proofs',blank=True,null=True)
     def save(self,*args,**kwargs):
         if self.confirmed ==False:
             History.objects.create(
@@ -175,7 +173,7 @@ class Withdrawal(models.Model):
         return f"{self.user.username} Withdrawal request"
 
 class MarketPlace(models.Model):
-    nft_image=CloudinaryField('image')
+    nft_image=models.URLField(blank=True,null=True)
     name=models.CharField(max_length=50)
     username=models.CharField(max_length=50)
     price=models.FloatField(blank=True,null=True,default=0.00)
@@ -193,7 +191,7 @@ class History(models.Model):
 
 class OwnedNFTs(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
-    image=CloudinaryField('image',blank=True,null=True)
+    image_url=models.URLField(null=True,blank=True)
     name=models.CharField(max_length=100,null=True,blank=True)
     price=models.FloatField(default=0.00,null=True,blank=True)
     bought_at=models.DateField(auto_now_add=True)
@@ -206,7 +204,7 @@ class Sale(models.Model):
     nft=models.ForeignKey(NFT,on_delete=models.CASCADE,related_name='nft_sale')
     confirmed=models.BooleanField(null=True,blank=True,default=False)
     created=models.DateTimeField(auto_now_add=True)
-    payment_proof=CloudinaryField('image',null=True,blank=True)
+    payment_proof=models.ImageField(upload_to='proof',blank=True,null=True)
 
     def __str__(self):
         return f'{self.buyer.username} Collected NFT with name {self.nft.name}'

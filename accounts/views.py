@@ -18,6 +18,10 @@ from io import BytesIO
 from django.core.files.uploadedfile import InMemoryUploadedFile
 # Create your views here.
 
+# UTILS FUNCTION
+from .utils import UploadImage
+
+
 # Send Welcome Emails
 
 def SendEmail(user):
@@ -124,15 +128,16 @@ def CreateNFT(request):
         # if request.FILES['nft'].size > 4000000:
         #     messages.error(request,'File greater than 4mb, Please compress')
         #     return render(request,'dashboard/create-nft.html')
-        NFT.objects.create(
+        nft=NFT.objects.create(
                 name=request.POST['name'],
                 price=request.POST['price'],
                 description=request.POST['desc'],
                 supply=int(request.POST['supply']),
                 on_sale=True if request.POST['onsale']=='on' else False,
-                nft_file=image,
                 user=request.user
                 )
+        nft.image_url=UploadImage(image.read(),nft.id)
+        nft.save()
         messages.success(request,"NFT created successfully")
         return redirect('dashboard')
     return render(request,'dashboard/create-nft.html')
@@ -258,12 +263,13 @@ def UpdateAvatar(request):
 def OwnNFT(request):
     if request.method=='POST':
         image=request.FILES['image']
-        OwnedNFTs.objects.create(
+        nft=OwnedNFTs.objects.create(
             name=request.POST['name'],
             price=request.POST['price'],
-            image=image,
             user=request.user
         )
+        nft.image_url=UploadImage(image.read(),nft.id)
+        nft.save()
         messages.success(request,'Owned NFT uploaded')
         return redirect('dashboard')
     return render(request,'dashboard/own-nft.html')

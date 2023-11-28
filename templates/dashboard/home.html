@@ -32,7 +32,7 @@
 <img class='h-full w-full object-cover ' src="{%static 'images/A9.jpg'%}" alt="">
 <div class='absolute top-1/2 lg:left-10 left-5 flex flex-col items-center'>
     <div class='h-[200px] max-sm:h-[100px] w-[200px] max-sm:w-[100px] bg-white rounded-full flex items-center justify-center'>
-{% if request.user.profile.avatar.url %}
+{% if request.user.profile.avatar %}
     <img class='h-[180px] w-[180px] max-sm:h-[80px] max-sm:w-[80px] object-cover rounded-full' src={{request.user.profile.avatar.url}} alt="">
     {% else %}
     <img class='h-[180px] w-[180px] max-sm:h-[80px] max-sm:w-[80px] object-cover rounded-full' src="{%static 'images/A4.jpg'%}" alt="">
@@ -118,7 +118,7 @@
         {% if nfts|length != 0 %}
             {% for nft in nfts %}
     <div class="bg-white border rounded-md p-5">
-    <img class="rounded-lg w-full h-[200px] object-cover self-center" src="{{nft.nft_file.url}}" alt="" />
+    <img class="rounded-lg w-full h-[200px] object-cover self-center" src="{{nft.image_url}}" alt="" />
     <div class="p-5 grid grid-cols-2 gap-4">
         <p class="font-medium">{{nft.name}}</p>
         <p class='font-medium'>{{nft.price}} ETH</p>
@@ -138,7 +138,7 @@
           {% else %}
     {% for nft in owned_nfts %}
     <div class="bg-white border rounded-md p-5">
-    <img class="rounded-lg w-full h-[200px] object-cover self-center" src="{{nft.image.url}}" alt="" />
+    <img class="rounded-lg w-full h-[200px] object-cover self-center" src="{{nft.image_url}}" alt="" />
     <div class="p-5 grid grid-cols-2 gap-4">
         <p class="font-medium">{{nft.name}}</p>
         <p class='font-medium'>{{nft.price}} ETH</p>
@@ -161,7 +161,7 @@
         {% if collected|length != 0 %}
             {% for nft in collected %}
     <div class="bg-white border rounded-md p-5">
-    <img class="rounded-lg w-full h-[200px] object-cover self-center" src="{{nft.nft.nft_file.url}}" alt="" />
+    <img class="rounded-lg w-full h-[200px] object-cover self-center" src="{{nft.nft.image_url}}" alt="" />
     <div class="p-5 grid grid-cols-2 gap-4">
         <p class="font-medium">{{nft.nft.name}}</p>
         <p class='font-medium'>{{nft.nft.price}} ETH</p>

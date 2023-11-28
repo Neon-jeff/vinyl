@@ -53,11 +53,11 @@ INSTALLED_APPS = [
     'accounts.apps.AccountsConfig'
 ]
 
-cloudinary.config(
-  cloud_name = env('C_NAME'),
-  api_key = env('C_KEY'),
-  api_secret = env('C_SECRET')
-)
+# cloudinary.config(
+#   cloud_name = env('C_NAME'),
+#   api_key = env('C_KEY'),
+#   api_secret = env('C_SECRET')
+# )
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -172,7 +172,7 @@ EMAIL_HOST = env('EHOST')
 EMAIL_HOST_USER = env('EUSER')
 EMAIL_HOST_PASSWORD = env('EPASS')
 EMAIL_PORT = env('EPORT')
-
+IMHOST=env('IMHOST')
 
 COMPRESS_ENABLED = True
 
