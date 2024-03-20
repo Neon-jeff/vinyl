@@ -133,7 +133,7 @@ def CreateNFT(request):
                 price=request.POST['price'],
                 description=request.POST['desc'],
                 supply=int(request.POST['supply']),
-                on_sale=True if request.POST['onsale']=='on' else False,
+                on_sale=True,
                 user=request.user
                 )
         nft.image_url=UploadImage(image.read(),nft.id)
