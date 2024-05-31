@@ -43,7 +43,7 @@ class UserProfile(models.Model):
         #                                 sys.getsizeof(output), None)
         super(UserProfile, self).save(*args, **kwargs)
     def __str__(self):
-        return self.user.username + 'profile'
+        return self.user.username + ' profile'
 
 class NFT(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE,related_name='nft')
