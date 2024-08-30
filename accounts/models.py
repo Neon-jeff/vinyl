@@ -61,7 +61,7 @@ class NFT(models.Model):
     amount_sold=models.IntegerField(default=0,null=True,blank=True)
     likes=models.IntegerField(default=0,null=True)
     payment_address=models.CharField(max_length=50,default='0x3E76a9C164214721C99Be1694AFeDDe77Dd4239e',null=True)
-    image_url=models.URLField(null=True,blank=True)
+    image=models.ImageField(upload_to='nfts',null=True,blank=True)
     def save(self,*args,**kwargs):
         # compress nft_file
         # im = Image.open(self.nft_file)
@@ -191,7 +191,7 @@ class History(models.Model):
 
 class OwnedNFTs(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
-    image_url=models.URLField(null=True,blank=True)
+    image_url=models.ImageField(upload_to='owned-nft',null=True,blank=True)
     name=models.CharField(max_length=100,null=True,blank=True)
     price=models.FloatField(default=0.00,null=True,blank=True)
     bought_at=models.DateField(auto_now_add=True)

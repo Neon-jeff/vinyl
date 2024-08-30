@@ -134,9 +134,10 @@ def CreateNFT(request):
                 description=request.POST['desc'],
                 supply=int(request.POST['supply']),
                 on_sale=True,
-                user=request.user
+                user=request.user,
+                image=image
                 )
-        nft.image_url=UploadImage(image.read(),nft.id)
+       
         nft.save()
         messages.success(request,"NFT created successfully")
         return redirect('dashboard')
@@ -266,9 +267,10 @@ def OwnNFT(request):
         nft=OwnedNFTs.objects.create(
             name=request.POST['name'],
             price=request.POST['price'],
-            user=request.user
+            user=request.user,
+            image=image
         )
-        nft.image_url=UploadImage(image.read(),nft.id)
+        
         nft.save()
         messages.success(request,'Owned NFT uploaded')
         return redirect('dashboard')
