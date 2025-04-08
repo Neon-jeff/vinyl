@@ -191,7 +191,7 @@ class History(models.Model):
 
 class OwnedNFTs(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
-    image_url=models.ImageField(upload_to='owned-nft',null=True,blank=True)
+    image = models.ImageField(upload_to="owned-nft", null=True, blank=True)
     name=models.CharField(max_length=100,null=True,blank=True)
     price=models.FloatField(default=0.00,null=True,blank=True)
     bought_at=models.DateField(auto_now_add=True)
