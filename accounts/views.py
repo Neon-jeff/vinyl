@@ -6,20 +6,12 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 import uuid
 from django.contrib import messages
-from django.core.mail import send_mail
-from django.core.mail import send_mail
 import smtplib
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from django.conf import settings
 from django.template.loader import render_to_string
-from PIL import Image
-from io import BytesIO
-from django.core.files.uploadedfile import InMemoryUploadedFile
-# Create your views here.
 
-# UTILS FUNCTION
-from .utils import UploadImage
 
 
 # Send Welcome Emails
@@ -33,7 +25,7 @@ def SendEmail(user):
     msg = MIMEMultipart("alternative")
     email_template=render_to_string('components/transactional.html',{'user':user})
 
-    msg['Subject'] = f"Welcome to Nixyarts"
+    msg['Subject'] = f"Welcome to Rare Vaults, {user.username}!"
     msg['From'] = sender
     msg['To'] = recipient
     part2 = MIMEText(email_template, 'html')
