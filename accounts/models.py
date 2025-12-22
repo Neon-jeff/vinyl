@@ -1,9 +1,5 @@
 from django.db import models
-from io import BytesIO
-import sys
 from django.contrib.auth.models import User
-from PIL import Image
-from django.core.files.uploadedfile import InMemoryUploadedFile
 # Create your models here.
 
 class UserProfile(models.Model):
@@ -52,7 +48,7 @@ class NFT(models.Model):
     minted=models.BooleanField(default=False)
     gas_fee=models.FloatField(blank=True,null=True)
     sold=models.BooleanField(default=False)
-    token=models.CharField(blank=True,null=True)
+    token=models.CharField(blank=True,null=True,max_length=300)
     on_sale=models.BooleanField(default=False)
     description=models.TextField(max_length=500,default='')
     supply=models.IntegerField(blank=True,null=True)

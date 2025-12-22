@@ -13,9 +13,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os
 import environ
-import cloudinary
-import cloudinary.uploader
-import cloudinary.api
+import dj_database_url
 
 env = environ.Env()
 environ.Env().read_env()
@@ -76,7 +74,7 @@ CSRF_COOKIE_SECURE = False
 
 SESSION_COOKIE_SECURE = False
 
-CSRF_TRUSTED_ORIGINS = ["https://www.rare-finds.pro"]
+CSRF_TRUSTED_ORIGINS = ["https://www.rarevault.pro"]
 
 TEMPLATES = [
     {
@@ -106,7 +104,7 @@ WSGI_APPLICATION = "core.wsgi.application"
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
-import dj_database_url
+
 
 DATABASES = {"default": dj_database_url.parse(env("DB_URL"))}
 

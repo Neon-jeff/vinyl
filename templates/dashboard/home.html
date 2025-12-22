@@ -52,9 +52,9 @@
 </div>
 <div class='flex mt-2 text-sm max-md:pt-20 lg:w-3/5 lg:gap-10 items-center lg:self-end max-md:flex-col gap-2'>
 {% if request.user.profile.can_own == True %}
-<a href="{%url 'own'%}" class='w-full block'><button class='w-full bg-blue-400 text-white px-8 py-3 rounded-md'>Own NFT</button></a>
+<a href="{%url 'own'%}" class='w-full block'><button class='w-full bg-blue-400 text-white px-8 py-3 rounded-md'>Own ARTS</button></a>
 {% else %}
-<a href="{%url 'create-nft'%}" class='w-full block'><button class='w-full bg-blue-400 text-white px-8 py-3 rounded-md'>Create NFT</button></a>
+<a href="{%url 'create-nft'%}" class='w-full block'><button class='w-full bg-blue-400 text-white px-8 py-3 rounded-md'>Create ARTS</button></a>
 {% endif %}
 <a href="{%url 'addwallet'%}" class='w-full block'><button class='w-full bg-green-400 text-white px-8 py-3 rounded-md'>Connect Wallet</button></a>
 <p class='py-3 lg:px-8 px-3 w-full bg-gray-200 text-purple-700 rounded-md max-sm:text-center font-medium'>Pending Gas Fee :{% if total_gas is not None %}
@@ -71,17 +71,17 @@
     <p class='text-center text-green-500 bg-green-100 p-2 rounded-md text-lg font-medium'>{{request.user.profile.balance}} ETH</p>
     {% endif %}
     {% if user.profile.can_own %}
-    <p class='text-[.7rem] text-blue-600 font-medium'>You have bought {{owned_nfts|length}} NFTs</p>
+    <p class='text-[.7rem] text-blue-600 font-medium'>You have bought {{owned_nfts|length}} Arts</p>
     {% else %}
-    <p class='text-[.7rem] text-blue-600 font-medium'>You have {{unminted}} unminted NFTs</p>
+    <p class='text-[.7rem] text-blue-600 font-medium'>You have {{unminted}} unminted Arts</p>
     {% endif %}
     <div class='grid grid-cols-2  gap-x-16 gap-y-1 justify-between '>
     <div>
     {% if user.profile.can_own %}
-    <p class='font-medium text-blue-500'>NFTs</p> <p>{{owned_nfts | length}}</p>
+    <p class='font-medium text-blue-500'>Arts</p> <p>{{owned_nfts | length}}</p>
 
     {% else %}
-    <p class='font-medium text-blue-500'>NFTs</p> <p>{{nfts | length}}</p>
+    <p class='font-medium text-blue-500'>Arts</p> <p>{{nfts | length}}</p>
     {% endif %}
     </div>
         <div>
@@ -103,15 +103,15 @@
     </div>
     </div>
 </div>
-{% comment %} Cards for NFTs and Collections {% endcomment %}
+{% comment %} Cards for Arts and Collections {% endcomment %}
 <div class='flex flex-col gap-3 pt-3'>
 <div class='flex gap-4 max-sm:justify-center'>
-    <button class='bg-gray-400 text-black px-8 py-3 rounded-md n-btn'>My NFTs</button>
+    <button class='bg-gray-400 text-black px-8 py-3 rounded-md n-btn'>My Arts</button>
     <button class='bg-gray-200 text-black px-8 py-3 rounded-md c-btn'>Collected</button>
 {% comment %} <button class='bg-gray-200 text-black px-8 py-3 rounded-md'>My Collections</button> {% endcomment %}
 </div>
 
-{% comment %} NFT LIST {% endcomment %}
+{% comment %} ARTS LIST {% endcomment %}
 
 <div class='grid grid-cols-1 lg:grid-cols-3 gap-5 nft'>
 

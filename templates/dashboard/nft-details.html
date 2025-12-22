@@ -53,7 +53,7 @@
     </div>
 
  <form action="" method="post" class='p-5 w-full h-full bg-white mx-auto rounded-md flex flex-col gap-5'>
-     <h1 class='text-lg font-semibold text-center bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400 inline-block text-transparent  bg-clip-text'>Update NFT</h1>
+     <h1 class='text-lg font-semibold text-center bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400 inline-block text-transparent  bg-clip-text'>Update ARTS</h1>
     {% csrf_token %}
         <fieldset class='flex gap-2 flex-col font-medium'>
         <label for="price" class="text-blue-500">Price (ETH)</label>
@@ -70,7 +70,7 @@
         <label for="supply" class="text-blue-500">Supply</label>
         <input type="number" name="supply" id="addr" class='rounded-md' max="50" required value={{nft.supply}}>
         </fieldset>
-        <button class='bg-blue-500 text-white py-3 rounded-md'>Update NFT</button>
+        <button class='bg-blue-500 text-white py-3 rounded-md'>Update ARTS</button>
     </form>
     </div>
 </section>

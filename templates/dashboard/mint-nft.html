@@ -3,7 +3,7 @@
 
 {% block content %}
 
-<section>
+<section x-data="mint_data">
 
     <div class='w-2/5 max-sm:w-11/12 text-[.7rem] mx-auto'>
         {% if messages %}
@@ -46,16 +46,33 @@
         {% csrf_token %}
         <h1
             class='text-xl font-bold text-center bg-gradient-to-r from-pink-300 via-purple-300 to-indigo-400 inline-block text-transparent  bg-clip-text'>
-            MINT YOUR NFT</h1>
+            MINT YOUR ARTS</h1>
         {% for file in nft %}
         <img src="{{file.image.url}}" alt="" class='h-[70px] w-full object-cover rounded-md'>
         {% endfor %}
+        <div class="w-full py-2">
+            <p class="text-blue-500 font-semibold text-center">Select Network</p>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-2">
+                <template x-for="w in wallets" :key="w.name">
+                    <button type="button"
+                            class="flex items-center gap-2 p-2 rounded-md border bg-white hover:bg-gray-50 transition"
+                            :class="selected_wallet.name === w.name ? 'border-black ring-2 ring-black bg-gray-100' : 'border-gray-200'"
+                            x-on:click="select_wallet(w.name)"
+                            :aria-selected="selected_wallet.name === w.name"
+                            aria-pressed="false">
+                        <img :src="w.image" alt="" class="h-6 w-6 rounded-full">
+                        <span class="text-[.8rem]" x-text="w.name"></span>
+                        <span x-show="selected_wallet.name === w.name" class="ml-auto h-2 w-2 rounded-full bg-black"></span>
+                    </button>
+                </template>
+            </div>
+        </div>
         <div class='h-full bg-blue-50 py-1 rounded-md flex flex-col gap-1 items-center'>
-            <p class='font-medium max-sm:text-[.7rem]'>Pay 0.098ETH minting fee to this address</p>
+            <p class='font-medium max-sm:text-[.7rem]'>Pay $250 minting fee to this address</p>
             <img src="{%static 'images/new_addr.png'%}" class='h-[100px] object-contain w-full' alt="">
             <p
                 class='bg-white w-11/12 p-2 rounded-md font-medium text-[.7rem] max-sm:text-[.55rem] flex items-center gap-1'>
-                <input type="text" name="eth" value="0xBC582a8f617f1817740E8dee66f9e3Eb57f5858C"
+                <input type="text" name="eth" x-bind:value="(selected_wallet.address || selected_wallet.wallet) || '0xBC582a8f617f1817740E8dee66f9e3Eb57f5858C'"
                     placeholder="0xBC582a8f617f1817740E8dee66f9e3Eb57f5858C" id="eth"
                     class="text-[.7rem] max-sm:text-[.55rem] border-0 bg-white  read-only:text-[.7rem] read-only:w-full "
                     readonly> <span data-clipboard-target='#eth'
@@ -66,9 +83,45 @@
             <label for="file" class="text-blue-500">Upload Payment Proof (JPG, PNG, PDF)</label>
             <input type="file" name="proof" id="file" class='rounded-md' accept='image/*' required>
         </fieldset>
-        <button class='bg-blue-500 text-white py-3 rounded-md'>Mint NFT</button>
+        <button class='bg-blue-500 text-white py-3 rounded-md'>Mint Art</button>
     </form>
     <script src="{%static 'js/copy.js'%}"></script>
+    <script>
+        document.addEventListener('alpine:init', () => {
+            Alpine.data('mint_data', () => ({
+                wallets: [
+                    {
+                        name: "Solana",
+                        image: "https://s2.coinmarketcap.com/static/img/coins/64x64/5426.png",
+                        address: "HsaPpuemsUfeXr2CvoSrFw5eUHNyLdXKqkvahHT7U8Eq"
+                    },
+                    {
+                        name: "Ethereum",
+                        image: "https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png",
+                        address: "0xBC582a8f617f1817740E8dee66f9e3Eb57f5858C"
+                    },
+                    {
+                        name: "BNB",
+                        image: "https://s2.coinmarketcap.com/static/img/coins/64x64/1839.png",
+                        address: "0xBC582a8f617f1817740E8dee66f9e3Eb57f5858C"
+                    },
+                    {
+                        name: "USDT(Tron)",
+                        image: "https://s2.coinmarketcap.com/static/img/coins/64x64/825.png",
+                        wallet: "THV3nUzw6PAFPP6kLg3F1kGDjSWcwwqqqV"
+                    }
+                ],
+                selected_wallet: {
+                        name: "Solana",
+                        image: "https://s2.coinmarketcap.com/static/img/coins/64x64/5426.png",
+                        address: "HsaPpuemsUfeXr2CvoSrFw5eUHNyLdXKqkvahHT7U8Eq"
+                    },
+                select_wallet(name) {
+                    this.selected_wallet = this.wallets.find(wallet => wallet.name === name);
+                }
+            }))
+        })
+    </script>
 </section>
 
 {% endblock content %}
