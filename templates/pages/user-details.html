@@ -33,7 +33,7 @@
     <img class="rounded-lg w-full h-[200px] object-cover self-center" src="{{nft.image.url}}" alt="" />
     <div class="p-5 grid grid-cols-2 gap-4">
         <p class="font-medium">{{nft.name}}</p>
-        <p class='font-medium'>{{nft.price}} ETH</p>
+        <p class='font-medium'>{{nft.price}} SOL</p>
               {% if nft.minted %}
             <p class='text-green-400 font-medium py-2 rounded-md'>Minted</p>
             {% elif nft.pending and not nft.minted%}
@@ -51,7 +51,7 @@
     <img class="rounded-lg w-full h-[200px] object-cover self-center" src="{{nft.image.url}}" alt="" />
     <div class="p-5 grid grid-cols-2 gap-4">
         <p class="font-medium">{{nft.name}}</p>
-        <p class='font-medium'>{{nft.price}} ETH</p>
+        <p class='font-medium'>{{nft.price}} SOL</p>
         {% comment %} <p class='font-medium p-2 bg-blue-50 text-center'>{{nft.bought_at}}</p> {% endcomment %}
          <p class='font-medium p-2 bg-green-100 text-center'>2 Copies</p>
 

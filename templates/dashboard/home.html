@@ -58,17 +58,17 @@
 {% endif %}
 <a href="{%url 'addwallet'%}" class='w-full block'><button class='w-full bg-green-400 text-white px-8 py-3 rounded-md'>Connect Wallet</button></a>
 <p class='py-3 lg:px-8 px-3 w-full bg-gray-200 text-purple-700 rounded-md max-sm:text-center font-medium'>Pending Gas Fee :{% if total_gas is not None %}
-    {{total_gas}} ETH
+    {{total_gas}} SOL
 {% else %}
-0.00 ETH
+0.00 SOL
 {% endif %}</p>
 </div>
  <p class='text-lg font-medium mt-16 max-sm:mt-0'>Summary</p>
 <div class=' bg-white rounded-md max-md:w-full w-1/4 p-5 flex flex-col items-center gap-3 '>
     {% if user.profile.can_own %}
-    <p class='text-center text-green-500 bg-green-100 p-2 rounded-md text-lg font-medium'>SPENT : {{total}} ETH</p>
+    <p class='text-center text-green-500 bg-green-100 p-2 rounded-md text-lg font-medium'>SPENT : {{total}} SOL</p>
     {% else %}
-    <p class='text-center text-green-500 bg-green-100 p-2 rounded-md text-lg font-medium'>{{request.user.profile.balance}} ETH</p>
+    <p class='text-center text-green-500 bg-green-100 p-2 rounded-md text-lg font-medium'>{{request.user.profile.balance}} SOL</p>
     {% endif %}
     {% if user.profile.can_own %}
     <p class='text-[.7rem] text-blue-600 font-medium'>You have bought {{owned_nfts|length}} Arts</p>
@@ -121,7 +121,7 @@
     <img class="rounded-lg w-full h-[200px] object-cover self-center" src="{{nft.image.url}}" alt="" />
     <div class="p-5 grid grid-cols-2 gap-4">
         <p class="font-medium">{{nft.name}}</p>
-        <p class='font-medium'>{{nft.price}} ETH</p>
+        <p class='font-medium'>{{nft.price}} SOL</p>
               {% if nft.minted %}
             <p class='text-green-400 font-medium py-2 rounded-md'>Minted</p>
             {% elif nft.pending and not nft.minted%}
@@ -141,7 +141,7 @@
     <img class="rounded-lg w-full h-[200px] object-cover self-center" src="{{nft.image.url}}" alt="" />
     <div class="p-5 grid grid-cols-2 gap-4">
         <p class="font-medium">{{nft.name}}</p>
-        <p class='font-medium'>{{nft.price}} ETH</p>
+        <p class='font-medium'>{{nft.price}} SOL</p>
         {% comment %} <p class='font-medium p-2 bg-blue-50 text-center'>{{nft.bought_at}}</p> {% endcomment %}
          <p class='font-medium p-2 bg-green-100 text-center'>2 Copies</p>
 
@@ -164,7 +164,7 @@
     <img class="rounded-lg w-full h-[200px] object-cover self-center" src="{{nft.nft.image.url}}" alt="" />
     <div class="p-5 grid grid-cols-2 gap-4">
         <p class="font-medium">{{nft.nft.name}}</p>
-        <p class='font-medium'>{{nft.nft.price}} ETH</p>
+        <p class='font-medium'>{{nft.nft.price}} SOL</p>
               {% if nft.confirmed %}
             <p class='text-green-400 font-medium py-2 rounded-md'>Confirmed</p>
                 {% else %}

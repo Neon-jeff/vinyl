@@ -10,7 +10,7 @@
     <div class="flex flex-col justify-between items-center p-4 leading-normal w-full">
         <h5 class="mb-2 text-lg font-semibold tracking-tight text-gray-900 dark:text-white">{{nft.name}}</h5>
         <p>@{{nft.user.username}}</p>
-        <p class="mb-3 font-semibold text-green-600 dark:text-gray-400 pt-3">{{nft.price}} ETH</p>
+        <p class="mb-3 font-semibold text-green-600 dark:text-gray-400 pt-3">{{nft.price}} SOL</p>
         {% comment %} <p class='font-medium cursor-pointer'>Highlight <i class="fa-regular fa-heart"></i></p> {% endcomment %}
         <a href="{% url 'buy-nft' pk=nft.id %}" class='w-4/5'><button class='bg-blue-600 text-white p-3 w-full  rounded-md mt-5'>Collect</button></a>
     </div>
@@ -22,7 +22,7 @@
     <div class="flex flex-col justify-between items-center p-4 leading-normal w-full">
         <h5 class="mb-2 text-lg font-semibold tracking-tight text-gray-900 dark:text-white">{{nft.name}}</h5>
         <p>@{{nft.user.username}}</p>
-        <p class="mb-3 font-semibold text-green-600 dark:text-gray-400 pt-3">{{nft.price}} ETH</p>
+        <p class="mb-3 font-semibold text-green-600 dark:text-gray-400 pt-3">{{nft.price}} SOL</p>
         {% comment %} <p class='font-medium cursor-pointer'>Highlight <i class="fa-regular fa-heart"></i></p> {% endcomment %}
         <a href="{% url 'buy-nft' pk=nft.id %}"><button class='bg-blue-600 text-white p-3 w-full  rounded-md mt-5'>Collect</button></a>
     </div>

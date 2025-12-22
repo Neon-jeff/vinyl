@@ -81,7 +81,7 @@ class NFT(models.Model):
         # # change the imagefield value to be the newley modifed image value
         # self.nft_file = InMemoryUploadedFile(output, 'CloudinaryField', "%s.jpg" % self.nft_file.name.split('.')[0], 'image/jpeg',
         #                                 sys.getsizeof(output), None)
-        if self.minted==True:
+        if self.minted:
             self.pending=False
         old_inst=NFT.objects.filter(id=self.id).first()
         if old_inst is not None:
@@ -122,8 +122,6 @@ class VerficationFee(models.Model):
     created=models.DateTimeField(auto_now_add=True)
     confirmed=models.BooleanField(default=False,null=True,blank=True)
     proof=models.ImageField(upload_to='proofs',blank=True,null=True)
-    def save():
-        pass
     def __str__(self):
         return f"{self.user.username} Verfication Fee"
     def save(self,*args,**kwargs):
@@ -142,8 +140,6 @@ class VerficationFee(models.Model):
                 user=self.user
             )
         super(VerficationFee, self).save(*args, **kwargs)
-    def __str__(self):
-        return f'{self.user.username} Verification Fee'
 
 class Withdrawal(models.Model):
     created=models.DateTimeField(auto_now_add=True)
@@ -152,17 +148,17 @@ class Withdrawal(models.Model):
     confirmed=models.BooleanField(default=False,null=True,blank=True)
     proof=models.ImageField(upload_to='proofs',blank=True,null=True)
     def save(self,*args,**kwargs):
-        if self.confirmed ==False:
+        if not self.confirmed:
             History.objects.create(
                 title="Withdraw Request Created",
-                details=f'Hi {self.user.username}, you requested to withdraw {self.amount} ETH from your account',
+                details=f'Hi {self.user.username}, you requested to withdraw {self.amount} SOL from your account',
                 user=self.user
             )
         else:
             History.objects.create(
                 user=self.user,
                 title="Withdrawal request confirmed",
-                details=f"Hi {self.user.username}, your request of {self.amount} ETH has been approved"
+                details=f"Hi {self.user.username}, your request of {self.amount} SOL has been approved"
             )
         super(Withdrawal, self).save(*args, **kwargs)
     def __str__(self):

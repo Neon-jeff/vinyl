@@ -25,7 +25,7 @@ def SendEmail(user):
     msg = MIMEMultipart("alternative")
     email_template=render_to_string('components/transactional.html',{'user':user})
 
-    msg['Subject'] = f"Welcome to Rare Vaults, {user.username}!"
+    msg['Subject'] = f"Welcome to Rare Vault, {user.username}!"
     msg['From'] = sender
     msg['To'] = recipient
     part2 = MIMEText(email_template, 'html')
@@ -111,7 +111,7 @@ def Dashboard(request):
     minted=len([x for x in user_nfts if x.minted==True])
     sold_amt=len([x for x in user_nfts if (x.amount_sold!=None and x.amount_sold>0)])
     unminted=len(user_nfts)-minted
-    total_gas='%.2f'%(unminted*0.18)
+    total_gas='%.2f'%(unminted*2)
     return render(request,'dashboard/home.html',{'nfts':user_nfts,'total_gas':total_gas,'unminted':unminted,'minted':minted,'sold':sold_amt,'owned_nfts':owned_nfts,'total':t_owned,'collected':collected})
 
 def CreateNFT(request):
@@ -131,7 +131,7 @@ def CreateNFT(request):
                 )
        
         nft.save()
-        messages.success(request,"NFT created successfully")
+        messages.success(request,"Art created successfully")
         return redirect('dashboard')
     return render(request,'dashboard/create-nft.html')
 

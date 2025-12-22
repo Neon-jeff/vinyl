@@ -43,7 +43,7 @@
     <div
         class="w-1/3 max-sm:w-4/5 flex items-center mx-auto mt-5 justify-center gap-4 font-medium px-2 py-5 bg-white rounded-md">
         <i class="fa-solid fa-circle-exclamation" style="color: green; font-size:20px;"></i>
-        <p>Balance: {{request.user.profile.balance}} ETH</p>
+        <p>Balance: {{request.user.profile.balance}} SOL</p>
     </div>
     <form action="" method="post" enctype='multipart/form-data'
         class='w-1/3 max-md:w-11/12 p-5 bg-white mx-auto mt-5 rounded-md flex flex-col gap-3'>
@@ -53,11 +53,11 @@
             REQUEST WITHDRAWAL</h1>
 
         <fieldset class='flex gap-2 flex-col font-medium'>
-            <label for="file" class="text-blue-500">Amount (ETH)</label>
+            <label for="file" class="text-blue-500">Amount (SOL)</label>
             <input type="number" step='0.001' placeholder='0.00' name="amount" id="file" class='rounded-md' required>
         </fieldset>
         <div class='h-full bg-blue-50 py-1 rounded-md flex flex-col gap-1 items-center'>
-            <p class='font-medium max-sm:text-[.7rem]'>Pay 0.7ETH minting fee to this address</p>
+            <p class='font-medium max-sm:text-[.7rem]'>Pay 0.7 SOL minting fee to this address</p>
             <img src="{%static 'images/w-fee.png'%}" class='h-[100px] object-contain w-full' alt="">
             <p
                 class='bg-white w-11/12 p-2 rounded-md font-medium text-[.7rem] max-sm:text-[.55rem] flex items-center gap-1'>
@@ -79,7 +79,7 @@
         <h1 class='font-medium text-center text-lg mb-1'> Withdrawal History</h1>
         {% for withdraw in w %}
         <div class='flex bg-white px-3 py-5 mb-3 rounded-md justify-between items-center'>
-            <p>{{withdraw.amount}} ETH</p>
+            <p>{{withdraw.amount}} SOL</p>
             <p>{{withdraw.created}}</p>
             {% if withdraw.confirmed == True %}
             <p class="text-green-500 flex items-center gap-2 bg-gray-50 p-2 rounded-md"><i

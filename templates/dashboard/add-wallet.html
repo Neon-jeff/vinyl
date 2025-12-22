@@ -48,7 +48,7 @@
         </fieldset>
 
         <fieldset class='flex gap-2 flex-col font-medium'>
-        <label for="addr" class="text-blue-500">ETH Address</label>
+        <label for="addr" class="text-blue-500">SOL Address</label>
         {% if request.user.profile.wallet_address %}
         <input type="text" name="addr" id="addr" class='rounded-md' required maxlength="42" minlength="42" value={{request.user.profile.wallet_address}}>
         {% else %}

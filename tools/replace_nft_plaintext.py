@@ -48,8 +48,8 @@ def transform_plain_text(content: str) -> str:
                 replaced = word_re_plural.sub(replace_case_preserving, sub)
                 replaced = word_re.sub(replace_case_preserving, replaced)
                 # Replace specific brand terms
-                replaced = replaced.replace('RareFinds', 'Rare Vaults')
-                replaced = replaced.replace('Rare Finds', 'Rare Vaults')
+                replaced = replaced.replace('RareFinds', 'Rare Vault')
+                replaced = replaced.replace('Rare Finds', 'Rare Vault')
                 out.append(replaced)
     return ''.join(out)
 
