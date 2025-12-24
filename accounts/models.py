@@ -165,7 +165,7 @@ class Withdrawal(models.Model):
         return f"{self.user.username} Withdrawal request"
 
 class MarketPlace(models.Model):
-    nft_image=models.URLField(blank=True,null=True)
+    nft_image=models.ImageField(upload_to='marketplace', blank=True,null=True)
     name=models.CharField(max_length=50)
     username=models.CharField(max_length=50)
     price=models.FloatField(blank=True,null=True,default=0.00)

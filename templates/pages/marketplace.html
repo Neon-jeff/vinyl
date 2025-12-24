@@ -6,7 +6,7 @@
     <div class="grid lg:grid-cols-4 gap-10 mx-auto justify-center">
         {% for nft in nfts  %}
     <div  class="flex flex-col p-5 items-center text-center max-sm:text-center bg-white rounded-lg  hover:scale-110 transition duration-150 ease-in  ">
-    <img class="object-cover w-full rounded-t-lg h-48 md:rounded-md" src={{nft.nft_file.url}} alt="">
+    <img class="object-cover w-full rounded-t-lg h-48 md:rounded-md" src={{nft.image.url}} alt="">
     <div class="flex flex-col justify-between items-center p-4 leading-normal w-full">
         <h5 class="mb-2 text-lg font-semibold tracking-tight text-gray-900 dark:text-white">{{nft.name}}</h5>
         <p>@{{nft.user.username}}</p>
