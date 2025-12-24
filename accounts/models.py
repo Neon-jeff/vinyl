@@ -189,7 +189,7 @@ class OwnedNFTs(models.Model):
     bought_at=models.DateField(auto_now_add=True)
 
     def __str__(self):
-        return f'{self.user.username} Owned NFT'
+        return f'{self.user.username} {self.name} Owned NFT'
 
 class Sale(models.Model):
     buyer=models.ForeignKey(User,on_delete=models.CASCADE,related_name='sales_done')
